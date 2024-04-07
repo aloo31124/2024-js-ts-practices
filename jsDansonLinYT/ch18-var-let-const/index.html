@@ -1,0 +1,122 @@
+<h1>JavaScript var let const的区别 - Web前端工程师面试题讲解</h1>
+https://www.youtube.com/watch?v=aqZuCthC5BY&list=PLMN9fM-0gQ90NMxWjL2xnWQoFh-28pwa_&index=18
+<br>
+
+<h2>範例1: 重複定義, 改值</h2>
+1. var 可被重複定義, 並被改值
+<br>
+2. let 不可被重複定義, 但可被 改值
+<br>
+3. const 不可被重複定義, 不可被改值
+<br>
+
+<input type="text" placeholder="技術蛋老師">
+<button>發表評論</button>
+<div></div>
+
+<script>
+    var text = document.querySelector("input[type='text']");
+    var button = document.querySelector("button");
+    var div = document.querySelector("div");
+
+    button.onclick = function() {
+        var content = text.value;
+        var content = "yoyo check";
+        div.innerText = content;
+    }
+</script>
+
+
+
+
+<h2>範例2: const 可改變之情境</h2>
+1. const 使用 數組 就可讓值 指向 數組, 可改變
+
+<input type="text" placeholder="這是範例2" id="input_1_2">
+<button id="btn_1_2">發表評論</button>
+<div id="div_1_2"></div>
+
+<script>
+    var input_1_2 = document.querySelector("#input_1_2");
+    var btn_1_2 = document.querySelector("#btn_1_2");
+    var div_1_2 = document.querySelector("#div_1_2");
+
+    btn_1_2.onclick = function() {
+        console.log(input_1_2.value);
+        const content_1_2 = [];
+        content_1_2[0] = input_1_2.value;
+        div_1_2.innerText = content_1_2[0];
+    }
+</script>
+
+
+
+<h2>範例3: 提升 host </h2>
+1. var 的提升, 若 var 在呈現元素 p 之後才聲明 => js 會將 var 提前聲明
+<br>
+2. 但上述切換為 let , 就會直接報錯
+<br>
+
+<p id="p_3_1">床前明月光</p>
+<p id="p_3_2"></p>
+
+<script>
+    var p_3_2 = document.querySelector("#p_3_2");
+    //var content_3_2 = "李白睡得香";
+    p_3_2.innerText = content_3_2;
+    var content_3_2 = "李白睡得香";
+
+</script>
+
+
+
+
+<h2>範例4: block區塊作用域</h2>
+1. 使用 函式, 迴圈, 或者 花括弧 {} 即是 區塊作用域 => 可以啊 @_@
+<br>
+2. var 在區塊作用域無效, let, const 可以, 請實作如下:
+<br>
+
+<p id="p_4_1">床前明月光</p>
+<p id="p_4_2"></p>
+
+
+<script>
+    var p_4_2 = document.querySelector("#p_4_2");
+    var content_4_2 = "疑是地上霜";
+    {
+        var content_4_2 = "李白睡得香2";
+        p_4_2.innerText = content_4_2;
+    }
+
+</script>
+
+
+<h2>範例5: 迴圈 與 區塊作用域</h2>
+1. es6 之後, 迴圈 亦算是一種 區塊作用域
+<br>
+2. 範例不太懂 
+
+
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+<script>
+    var liList = document.querySelectorAll("li");
+    for(var i=0; i<liList.length; i++){
+        liList[i].innerText = i;
+    }
+</script>
+
+
+
+
+
+
+
+
+

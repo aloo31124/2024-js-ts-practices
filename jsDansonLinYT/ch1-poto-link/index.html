@@ -1,0 +1,57 @@
+<h1>JavaScript原型链 - Web前端工程师面试题讲解</h1>
+https://www.youtube.com/watch?v=BPOH6MAURkY&list=PLMN9fM-0gQ90NMxWjL2xnWQoFh-28pwa_&index=1
+<br>
+
+<h2>範例1: 買口罩</h2>
+1. new 一個 Shop() fun 給 person
+<br>
+2. pserson 有個屬性: __proto__ 會指向 shop 的原型對象 prototype
+<br>
+3. new 一個 Supermarket() 給 shop()
+<br>
+4. Supermarket 之 prototype 有 product 口罩
+<br>
+5. 原型練 => 往源頭找 屬性的過程 
+<br>
+
+<script>
+    // 請實作
+    console.log("4. Supermarket 之 prototype 有 product 口罩");
+    function Supermarket(){};
+    Supermarket.prototype.product = "口罩2";
+
+    console.log("3. new 一個 Supermarket() 給 shop()");
+    function Shop() {};
+    Shop.prototype = new Supermarket();
+
+    console.log("2. pserson 有個屬性: __proto__ 會指向 shop 的原型對象 prototype");
+    var person = new Shop();
+    console.log(person.product);
+
+</script>
+
+
+
+
+<h2>面試題1: 實例查找 Obj 與 fun 的 proto</h2>
+1. 不太懂, f 其 a,b 都有啊 @_@
+<br>
+
+<script>
+    Object.prototype.a = function(){};
+    Function.prototype.b = function(){};
+
+    var F = function(){};
+    var f = new F();
+
+    console.log(F);
+    console.log(f);
+</script>
+
+
+
+
+
+
+
+
