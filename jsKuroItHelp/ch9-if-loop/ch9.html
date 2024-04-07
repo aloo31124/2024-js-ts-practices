@@ -1,0 +1,49 @@
+<h1>流程控制,迴圈</h1>
+
+<h2>if-else, switch</h2>
+
+<script>
+    console.log("使用 if-else 判斷月份");
+    month1 = 2;
+    if (Math.ceil(month1/3)===1) {
+        console.log("春天");
+    } else if (Math.ceil(month1/3)===2) {
+        console.log("夏天");
+    } else if (Math.ceil(month1/3)===3) {
+        console.log("秋天");
+    } else if (Math.ceil(month1/3)===4) {
+        console.log("冬天");
+    } else {
+        console.log("月份錯誤");
+    }
+
+</script>
+
+<script>
+    console.log("使用 switch-case 判斷月份");
+    month2 = 4;
+    switch(Math.ceil(month2/3)) {
+        case 1:
+            console.log("春天");
+            break;
+        case 2:
+            console.log("夏天");
+            break;
+        case 3:
+            console.log("秋天");
+            break;
+        case 4:
+            console.log("冬天");
+            break;
+        default:
+            console.log("月份錯誤");
+            break;
+    }
+</script>
+
+
+<h2>三元運算子 (條件)?a:b </h2>
+
+<h2>for, while</h2>
+
+<h2>break, continue</h2>

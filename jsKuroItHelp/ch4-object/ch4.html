@@ -1,0 +1,184 @@
+<h1>ch4. 物件 陣列 型別</h1>
+
+0. 複習 ch3 , 型別兩大類：?
+
+
+<h2>物件</h2>
+
+1. js 中, 基本型別primitive 外的，皆是 物件object
+
+2. js 對 物件 定義 可參考 ECMA (262) 文件:
+=> object is a collection of properties
+=> and has a prototype object
+
+3. js 的 物件 Object 可 (簡單理解) 為 屬性 property 之 集合
+
+4. 物件 之 屬性 property 是 key-value
+
+5. 而 屬性property 之 值 value , 可為 基本型別, 物件, 陣列, 函式 function
+
+
+
+<h2>物件 之 屬性 property</h2>
+=> js 兩種新增物件方式
+
+1. js 使用 new關鍵字 新增物件: new object() 
+=> 較舊的寫法
+=> new 完後 還需將 屬性 逐個使用 . 補上
+
+
+2. js 使用 物件實字 Object literal  建立
+=> 可用 {} 新增物件，屬性可一並新增
+=> 此為 JSON 核心語法
+
+<script>
+    console.log("1. js 使用 new關鍵字 新增物件: new object() ");
+    person1 = new Object();
+    person1.name = "loulou1";
+    person1.sayName = function(){ return person1.name; };
+    console.log(person1);
+
+    console.log("2. js 使用 物件實字 Object literal  建立");
+    person2 = {
+        name : "loulou2",
+        sayName : function() {
+            return this.name;
+        }
+    }
+    console.log(person2);
+
+</script>
+
+
+<h2>屬性property 存取</h2>
+=> js 物件 屬性 兩種存取方式
+
+1. 使用 .屬性名稱 取用該屬性
+
+2. 使用 ["屬性名稱"] 取用該屬性
+
+<script>
+    console.log("=> js 物件 屬性 兩種存取方式");
+    person3 = {
+        name : "loulou3",
+        sayName : function() {
+            return this.name;
+        }
+    }
+    console.log("1. 使用 .屬性名稱 取用該屬性");
+    console.log(person3.name);
+    console.log("2. 使用 [屬性名稱] 取用該屬性");
+    console.log(person3["name"]);
+</script>
+
+
+3. 存取屬性 兩種方法 之差異？
+=> .屬性名稱 此方法若語法錯誤，可告知錯
+=> 反之 .["屬性名稱"] 不會報錯誤
+
+<script>
+    console.log("3. 存取屬性 兩種方法 之差異？");
+    person4 = {
+        "001" : "number name is error !!"
+    }
+
+    console.log("=> .屬性名稱 此方法若語法錯誤，可告知錯");
+    //console.log(person4.001);  //會報錯誤
+
+    console.log("=> 反之 .[屬性名稱] 不會報錯誤");
+    console.log(person4["001"]); //不抱錯
+</script>
+
+
+
+<h2>物件屬性 新增,刪除</h2>
+
+1. 屬性新增: 物件.屬性名稱 = 新增值;
+
+2. 屬性刪除: delete 物件.屬性名稱;
+
+<script>
+    person5 = { name : "loulou5" };
+    console.log("1. 屬性新增: 物件.屬性名稱 = 新增值;");
+    person5.name2 = "name2 yoyo!"
+    console.log(person5.name2);
+
+    console.log("2. 屬性刪除: delete 物件.屬性名稱;");
+    delete person5.name2;
+    console.log(person5.name2);
+
+</script>
+
+<h2>檢查物件屬性是否存在</h2>
+
+1. 判斷是否為 undefined
+=> 缺點？
+
+2. 使用 '屬性名稱' in obj
+
+3. 使用 obj.hasOwnProperty('屬性名稱')
+
+<script>
+    person6 = { } // 無屬性
+    console.log("1. 判斷是否為 undefined");
+    console.log(person6.name === undefined);
+    //console.log('undefined' === undefined);
+
+    console.log("2. 使用 '屬性名稱' in obj");
+    console.log('name' in person6);
+
+    console.log("3. 使用 obj.hasOwnProperty('屬性名稱')");
+    console.log(person6.hasOwnProperty('name'));
+</script>
+
+
+<h2>陣列 array</h2>
+
+1. js 中 陣列是一個特別的物件
+
+2. js 有 0 至多個元素的集合，有順序性
+
+<script>
+    console.log("2. js 有 0 至多個元素的集合，有順序性");
+    array1 = [ 'yo', 1, (function(){ return 1+2; })(), { name: "obj1" } ];
+    console.log(array1);
+</script>
+
+
+<h2>新增陣列三方法</h2>
+
+1. new Array(); => 舊的
+
+2. [] 後續補上
+
+3. [] 直接新增
+
+<script>
+    console.log("1. new Array(); => 舊的");
+    array2 = new Array();
+    array2[0] = "apple2"; 
+    array2[1] = "orangin2";
+    console.log(array2);
+
+    console.log("2. [] 後續補上");
+    array3 = [];
+    array3[0] = "apple3"; 
+    array3[1] = "orangin3";
+    console.log(array3);
+
+    console.log("3. [] 直接新增");
+    array4 = [ "apple4", "oringe4" ];
+    console.log(array4);
+
+</script>
+
+typeof 暫略 ：）
+
+
+
+
+
+
+
+
+

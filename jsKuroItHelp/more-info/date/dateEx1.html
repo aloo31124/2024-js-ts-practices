@@ -1,0 +1,61 @@
+<h1>2024 3月 space in 處理首次練習</h1>
+
+<h2>基礎練習議題</h2>
+1. dat 取得當前 與 字串轉日期
+<br>
+
+
+2. 由當前日期取得:
+<br>
+=> 年 月 日 星期 資訊
+<br>
+=> 取得 3月 最後一天日期
+<br>
+=> 取得 3/22該週 星期一日期
+<br>
+
+3. 日期比大小(早晚):
+<br>
+=> date1 比 date2 晚
+<br>
+=> date3 相同於 date4
+<br>
+
+<script>
+    console.log("1. dat 取得當前 與 字串轉日期");
+    let currentDate = new Date();
+    console.log(currentDate);
+    console.log(new Date("2024-2-3"));
+
+    console.log("2. 由當前日期取得:");
+    console.log("=> 年 月 日 星期 資訊");
+    console.log(currentDate.getFullYear());
+    console.log(currentDate.getMonth() + 1); // 月份需要 + 1
+    console.log(currentDate.getDate()); // 日期
+    console.log(currentDate.getDay()); // 星期
+
+    console.log("=> 取得 3月 最後一天日期");
+    console.log(new Date(2024, 3, 0));
+
+    console.log("=> 取得 3/22該週 星期一日期");
+    //let checkDate = new Date(2024, 3, 22); => 錯誤 ==???
+    let checkDate = new Date("2024-3-22");
+    console.log(checkDate.getDay());
+    console.log(new Date(checkDate.getFullYear(), checkDate.getMonth() + 1, (checkDate.getDate() - checkDate.getDay() + 1)));
+
+
+    console.log("3. 日期比大小(早晚):");
+    console.log("=> date1 比 date2 晚");
+    let date1 = new Date("2024-3-11");
+    let date2 = new Date("2024-3-2");
+    console.log(date1 > date2);
+
+    console.log("=> date3 相同於 date4");
+    let date3 = new Date("2024-3-8");
+    let date4 = new Date("2024-3-8");
+    console.log(date3 == date4);
+    console.log(date3.getTime() == date4.getTime());
+
+</script>
+
+

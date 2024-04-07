@@ -1,0 +1,167 @@
+<h1>ch12 DOM API</h1>
+https://ithelp.ithome.com.tw/articles/10191765
+
+
+<h2>js script 放 head,body 差異</h2>
+
+1. js 之 script 所在位置可能會影響,需注意
+<br>
+2. js script 在 head, body 差異：
+=> 在 head script js 時, 因抓取 html 尚未產生, 會出現錯誤
+<br>
+3. html 渲染進 瀏覽器 為 由上至下, 參考範例 ch12-ex.html
+<br>
+
+<p id="hellow0"></p>
+<script>
+    document.querySelector("#hellow0").textContent = "hellow 0";
+</script>
+
+
+
+<h2>DOM Tree (節點) 節點結構</h2>
+
+1. DOM Tree 的根節點為 document
+<br>
+2. 結構如下: <br>
+document    <br>
+|__ html    <br>
+&ensp; |__ head    <br>
+&ensp;&ensp;&ensp; |__ title __ 網頁頁籤標題   <br>
+&ensp;&ensp;&ensp; |__ meta __>    <br>
+&ensp; | <br>
+&ensp; |__ body <br>
+&ensp;&ensp;&ensp; |__  h1 標題
+
+
+<h2>DOM 節點 常見選取 get query</h2>
+1. DOM 節點 選取常使用 3get, 2query
+<br>
+
+<script>
+
+    document.getElementById("id1");
+    document.getElementsByClassName("css1");
+    document.getElementsByName("name1");
+
+    document.querySelector("id1");
+    //document.querySelectorAll(""); // ?
+    
+</script>
+
+<h2>DOM 節點 常見種類</h2>
+1. 印出 node type 的數字 => 使用 Node 模組
+<br>
+
+<script>
+    console.log("1. 印出 node type 的數字 => 使用 Node 模組");
+    // 1. 印出 node type 的數字
+
+    console.log(Node.ELEMENT_NODE);// html 節點
+    console.log(Node.TEXT_NODE); // 文字節點, 包含空格與換行
+    console.log(Node.COMMENT_NODE); // 註解
+
+</script>
+
+
+<h2>DOM節點 的 遊歷Traversing 查詢</h2>
+
+1. DOM Tree 節點關係, 會有 父子 , 與 兄弟Siblings 關係
+<br>
+2. 可使用 hasChildNode, *.childNode[i] 進行 遊歷traversing 查找, 只會跑第一層的 子節點
+<br>
+
+<div id="node1">
+    <!-- 我只是註解 -->
+    <div id="c1">文字</div>
+    <div id="c2">
+        <h3>標題h3</h3>
+        <a href="">href 文字</a>
+        <div id="c2_1">c2-1文字</div>
+    </div>
+    <h2>標題2</h2>
+</div>
+
+<script>
+    console.log("2. 可使用 hasChildNode, *.childNode[i] 進行 遊歷traversing 查找, 只會跑第一層的 子節點");
+    //const node1 = document.getElementById("node1");
+    const node1 = document.querySelector("#node1");
+    console.log(node1);
+
+    console.log(" ========== 印出全部 start ========== ");
+    if(node1.hasChildNodes()) {
+        for(let i=0; i<node1.childNodes[i].length; i++) {
+            console.log(node1.childNodes[i]);
+        }
+    }
+    console.log(" ========== 印出全部 end ========== ");
+
+
+    console.log("node1.firstChild");
+    console.log(node1.firstChild);
+    console.log("node1.lastChild");
+    console.log(node1.lastChild);
+    console.log("node1.parentNode");
+    console.log(node1.parentNode);
+    console.log("node1.previousSibling");
+    console.log(node1.previousSibling);
+    console.log("node1.nextSibling");
+    console.log(node1.nextSibling);
+</script>
+
+
+<h2>span應用範例</h2>
+=> 下次補 :)
+
+
+
+
+<h2>小結, getElement* 與 querySelector* 差異</h2>
+
+1. 回傳單個 html元素(node):
+<br>
+=> getElementById 與 querySelector("#id") 只回傳一個元素, 不會有 length, index 屬性
+<br>
+
+<p>2. 回傳多個 html元素:</p>
+<p>=> (1). getElementsBy** : 取得 ElementCollection    => 僅取得 html元素   => get 是動態 </p>
+<p>=> (2). querySelector() : 取得 NodeList             => 除了取得 html元素外, 另外可取得 文字節點, 屬性節點 => query 是靜態 </p>
+<br>
+
+3. 靜態 動態 取得 html 元素範例
+<br>
+=> get 為動態, 會因為清空而改變數量
+<br>
+=> query 為靜態, 不會因為清空而改變數量
+<br>
+
+
+
+<div id="outer">
+    out
+    <div id="inner">inner</div>
+</div>
+
+<script>
+    console.log("3. 靜態 動態 取得 html 元素範例");
+    // 如下實作
+
+    //分別 get, query 取得全部 div
+    let getAllDiv = document.getElementsByTagName("div");
+    let queryAllDiv = document.querySelectorAll("div");
+
+    // get 取得 outer div, 並清空 html
+    let getOuter = document.getElementById("outer");
+    getOuter.innerHTML = "";
+
+    //分別計算 get query 數量
+    console.log(getAllDiv.length); // get 為動態, 會因為清空而改變數量
+    console.log(queryAllDiv.length); // query 為靜態, 不會因為清空而改變數量
+
+</script>
+
+
+修改1
+
+修改2-2
+

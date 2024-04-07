@@ -1,0 +1,196 @@
+
+
+
+<h1>space in 中整理圖表數據</h1>
+
+1. space in [空間總覽] 功能, 需以 chart.js 呈現圖表。
+<br>
+2. 依照圖表資料格式需要分別整理 每月, 每週 之 預約次數
+<br>
+3. 整理資料格式如下：
+<br>
+<p>
+    {
+        timeTitle = ["1月", "2月", "3月"],
+        roomCount = [3, 5, 0],
+        siteCount = [0, 11, 3],
+    }
+</p>
+
+
+<script>
+    const bookingList = 
+    [
+        {
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-3-4",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-4",
+            "room":"testRoom",
+            "site":"testSite"
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-3-5",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-5",
+            "room":""
+        },
+
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-2-14",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-2-14",
+            "room":""
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-2-5",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-2-5",
+            "room":""
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-2-15",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-2-15",
+            "room":""
+        },
+
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2023-12-7",
+            "bookingType":"site",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2023-12-7",
+            "room":""
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-1-10",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-1-10",
+            "room":""
+        },
+
+    ]
+</script>
+
+
+
+
+<script>
+
+     /*
+   * 確認 該日期是否在範圍內
+   */
+  function isInTimeRange(timeInterval, index, date, startdate) {
+    if (timeInterval === "month") {
+        //該月份第一天
+        const startDate = new Date(startdate.getFullYear(), (index - 1), 1); //月份減1
+        //該月份最後一天
+        const endDate = new Date(startdate.getFullYear(), index, 0);
+        // 當前月份 在 範圍內
+        return (startDate <= date) && (date <= endDate);
+    } else if (timeInterval === "day") {
+        const checkDate = new Date(startdate.getFullYear(), startdate.getMonth(), index);
+        console.log(checkDate);
+        console.log(date);
+        console.log(checkDate.getTime() === date.getTime());
+        return (checkDate.getTime() === date.getTime());
+    }
+    return false;
+  }
+
+    // 整理參數
+    const currentDate = new Date();
+    let countTime = 7;
+    let timeInterval = "day" //時間間隔
+    let startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() , (currentDate.getDate() - countTime + 2));
+    let startMonth = startDate.getMonth() + 1;
+    
+
+      // 篩選 日期範圍, 起迄日期
+      const bookingListFilter = bookingList.filter((booking) => {
+        const _startDate = startDate;
+        const _endDate = currentDate;
+        const bookingDate = new Date(booking.startDate);
+        return bookingDate >= _startDate && bookingDate <= _endDate;
+      });
+
+      console.log(bookingListFilter);
+
+
+      let arr = {
+          timeTitle : [],
+          roomCount : [],
+          siteCount : [],
+      }
+
+      for(let i=0; i<countTime; i++) {
+        // 開始計算之 月，日
+        let index = 0;
+        
+        if(timeInterval === "month") {
+          index = (startMonth + i);
+          arr.timeTitle.push(index.toString() + "月");
+        }
+        else if(timeInterval === "day") {
+          index = startDate.getDate() + i;
+          arr.timeTitle.push(index.toString());
+        }
+        
+        arr.roomCount.push(0);
+        arr.siteCount.push(0);
+
+        
+
+        bookingListFilter.forEach((item) => {
+              // 不在日期範圍內, 跳過
+              if(!isInTimeRange(timeInterval, index, new Date(item.startDate), startDate)){
+                  return;
+              }
+              // 教室預約 統計
+              if(item.bookingType === "room"){
+                ++arr.roomCount[i];
+              }
+              // 教室預約 統計
+              if(item.bookingType === "site"){
+                ++arr.siteCount[i];
+              }
+          })
+      }
+
+      console.log(arr);
+
+</script>
+
+

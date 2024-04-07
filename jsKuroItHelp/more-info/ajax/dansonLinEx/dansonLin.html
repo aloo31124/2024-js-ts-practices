@@ -1,0 +1,109 @@
+
+<h1>Ajax 是什么? 如何创建一个 Ajax？ - JavaScript前端Web工程师</h1>
+https://www.youtube.com/watch?v=ich9lcazAg0
+<br>
+
+<h2>簡介</h2>
+1. ajax 全名: Asynchronous JavaScript and XML
+<br>
+2. ajax 目地: 傳統網頁 request/response 更新整個網站太麻煩, ajax 可更新一部分區塊, ex: (google map)
+<br>
+3. ajax 更新局部區塊可使用: 點擊畫面 或 滾動視窗 觸發
+<br>
+
+<h2>xhr, XMLHttpRequest</h2>
+
+1. js 實現 ajax 主要是使用 XMLHttpRequest (瀏覽器提供之 api?) , 是一種 建構函式 , 後續簡稱 xhr 小黃人 :)
+<br>
+2. xhr 常見三種 方法:
+<br>
+=> a. open(方法get/post, url, 是否異步:true/false)
+<br>
+=> b. onreadystatechange() =監視 => readystate 回傳4 即完成
+<br>
+=> c. send(請求體)
+<br>
+
+3. js 使用 xhr 實作 ajax 基本流程:
+<br>
+=> onreadystatechange() 確認 readystate 回傳4 後, js 取改變瀏覽器 dom 來更新局部畫面
+<br>
+
+
+
+<h2>js 使用 xhr 實作 ajax 練習: </h2>
+1. xhr 進行 open
+<br>
+2. xhr 對 readystate 進行監聽
+<br>
+3. 狀態為 200, js修改 dom 更新畫面
+<br>
+4. 略過 CORS 問題 => 失敗 :)
+<br>
+5. 送出 request, 請求體為 null
+<br>
+
+<script>
+    
+    // 1. xhr 進行 open
+    const url = "loulou.txt";
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", url, true);
+
+    // 2. xhr 對 readystate 進行監聽
+    xhr.onreadystatechange = () => {
+        // 監聽,訂閱
+        if(xhr.readyState === 4) { // 監聽成功取得
+            if(xhr.status === 200) {  //伺服器 回傳 http 狀態
+                console.log(xhr.responseText);
+                // 3. 狀態為 200, 更新畫面
+                let p = document.querySelector("p");
+                p.innerHTML = xhr.responseText;
+            } else if(xhr.status !== 200) {
+                console.log("無法取得資料,錯誤狀態為: " + xhr.status);
+            }
+        }
+    }
+
+    // 4. 略過 CORS 問題
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    // 5. 送出 request, 請求體為 null
+    xhr.send({});
+</script>
+
+
+
+<h2>ajax + promise 實作</h2>
+=> promise 監聽(包含) ajax
+<br>
+
+<script>
+    function ajaxPromise() {
+        let promise = new Promise((resolve, reject) => {
+            // promise 監聽(包含) ajax
+            let xhr = new XMLHttpRequest();
+            xhr.open("get", "loulou.txt", true);
+            xhr.onreadystatechange = () => {
+
+                if(xhr.status === 200) {  //伺服器 回傳 http 狀態
+                    console.log(xhr.responseText);
+                    // 3. 狀態為 200, 更新畫面
+                    let p = document.querySelector("p");
+                    p.innerHTML = xhr.responseText;
+                } else if(xhr.status !== 200) {
+                    console.log("無法取得資料,錯誤狀態為: " + xhr.status);
+                }
+
+            }
+
+            xhr.send(null);
+        });
+    }
+</script>
+
+
+
+
+
+

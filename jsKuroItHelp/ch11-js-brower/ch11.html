@@ -1,0 +1,87 @@
+<h1>js 與 瀏覽器</h1>
+
+<h2>js 三要素</h2>
+
+1. html => 網頁結構
+2. css => 樣式
+3. js => 互動（行為）
+
+
+<h2>js 與 瀏覽器</h2>
+
+1. js 於 瀏覽器運作是 DOM, BOM
+=> js 於 node.js 上運作不同
+
+2. js 三大核心
+=> ECMA
+=> DOM
+=> BOM
+
+
+<h2>BOM</h2>
+
+1. BOM, 瀏覽器 物件 模組, 是瀏覽器功能核心, 與網頁(doc)無關
+
+2. W3C 將不同公司之瀏覽器整合納入進 HTML5 中, 即 BOM API 的功能
+
+3. BOM 又可稱為 DOM Level 0 (定義問題)
+
+4. BOM 核心物件為 Windows
+=> windows 物件 其下 有其他繼承物件 (先略)
+=> windows 物件 其下 有 docment物件, 即為 DOM
+
+<h2>BOM 特性 範例</h2>
+
+1. BOM 主要兩種功能:
+=> ECMA 規範之 windows 全域物件
+=> 對 瀏覽器 API 溝通之窗口, 如 alter()
+
+2. 在全物範圍 中宣告之 物件, 為 全物物件 (全域變數), 即為 windows.*
+
+3. window 全域變數 delete 差異:
+=> 沒指定window 無法刪
+=> 有指定window 可刪
+<script>
+    console.log("3. window 全域變數 delete 差異:");
+
+    console.log("=> 沒指定window 無法刪");
+    var a1 = 20;
+    delete window.a1;
+    console.log(a1);
+
+    console.log("=> 有指定window 可刪");
+    window.a2 = 10;
+    delete window.a2;
+    //console.log(a2);
+</script>
+
+
+4. window 與 瀏覽器 api 溝通窗口:
+=> 可視為 對瀏覽器本身的直接操作,如: 跳出小視窗, 關閉瀏覽器, 瀏覽器列印
+=> 其他功能, 如計數器
+
+<script>
+    console.log("4. window 與 瀏覽器 api 溝通窗口:");
+    console.log("=> 可視為 對瀏覽器本身的直接操作,如: 跳出小視窗, 關閉瀏覽器, 瀏覽器列印");
+    window.alert("alert!");
+    window.prompt("promopt!");
+</script>
+
+
+
+<h2>DOM</h2>
+
+1. window物件下的子物件 docment 即為 DOM, 網頁文本本身
+
+2. DOM 內的 HTML 標籤即為一種 DOM Tree 結構
+
+3. DOM Tree 結構:
+html 
+=> head
+==> tittle, meta, ...
+=> body
+==> h1, h2
+
+...
+
+

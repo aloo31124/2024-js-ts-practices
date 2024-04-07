@@ -1,0 +1,33 @@
+yoyo
+
+
+<script>
+
+console.log("start2")
+
+function solution(N) {
+    // to binary
+    const binary = N.toString(2);
+
+    let count = 0;
+    let getOneCount = 0;
+    for(let i=(binary.length-1); i>0; i--) {
+        console.log(binary[i]);
+        if(+binary[i] === 0) {
+            count ++;
+        }
+        else if(+binary[i] === 1) {
+            getOneCount ++;
+            count = 0;
+        }
+    }
+    if(getOneCount === 0){
+        return 0;
+    }
+    return count;
+}
+
+console.log(solution(32));
+
+</script>
+

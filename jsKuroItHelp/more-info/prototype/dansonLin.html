@@ -1,0 +1,88 @@
+
+<h1>原型對象理解</h1>
+
+https://www.youtube.com/watch?v=L5OFEmqaoXg&t=142s
+
+
+<h2>範例1: 創建Number, String , 釐清 __proto__ 與 prototype</h2>
+
+1. new Number, String 給 num, str => num, str 其 __proto__ 會指向 Number, String 之原型
+<br>
+2. * Number, String 其 prototype 回同上, 會指向 Number, String 之原型
+<br>
+3. Number.prototype 與 變數num.__proto__ 都會指向 Number 原型, 如下
+<br>
+num ==__proto__ ====>  <br>
+                     | <br>
+                     |==> Number 原型  <br>
+                     | <br>
+Number ==prototype ==> <br>
+
+<script>
+    console.log("3. Number.prototype 與 變數num.__proto__ 都會指向 Number 原型")
+    let num = new Number(666);
+    console.log(num.__proto__ === Number.prototype);
+
+    let str = new String("yo");
+    console.log(str.__proto__ === String.prototype);
+</script>
+
+<h2>範例2: 函式物件, new 會自動 return this, 與 call 綁定</h2>
+
+1. 範例2-1: new Mom, 不用 return this
+<br>
+<script>
+    console.log("1. 範例2: new Mom, 不用 return");
+    function Mom1(lastName) { this.lastName = lastName };
+    let son1 = new Mom1("son1 yo!");
+    console.log(son1.lastName);
+</script>
+
+2. 範例2-2: 不 new, 僅使用 函式調用, 需要 return this
+<br>
+<script>
+    console.log("");
+    //function Mom2(lastName) { this.lastName = lastName }; ==> 出錯, 無法取得屬性
+    function Mom2(lastName) { this.lastName = lastName; return this }; // => 需 return this
+    let son2 = Mom2("son2 yoyo !");
+    console.log(son2.lastName);
+</script>
+
+
+
+
+<h1>原型練</h1>
+
+<h2>範例1: (超商戴口罩) A new 給 B 原型, B 可取得 A原型屬性</h2>
+=> A 新增原型屬性 prototype.product 新增口罩
+<br>
+=> C 會 使用 __proto__ 尋找 B.prototype
+<br>
+
+<script>
+    console.log("範例1: (超商戴口罩) A new 給 B 原型, B 可取得 A原型屬性");
+    function A() {};
+    A.prototype.product = "口罩";
+
+    function B() {};
+    B.prototype = new A();
+
+    let C = new B();
+    console.log(C.product);
+</script>
+
+<h2>範例2: Object 與 Function 原型</h2>
+
+<script>
+    console.log("範例2: Object 與 Function 原型");
+    Object.prototype.a = function(){};
+    Function.prototype.b = function() {};
+    let F = function(){};
+    let f = new F();
+    console.log("f, F 是否有 a,b 函式？")
+    console.log(f);
+    console.log(F.prototype);
+</script>
+
+
+

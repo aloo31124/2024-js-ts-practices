@@ -1,0 +1,181 @@
+<h1>表達（運算）式 express , 運算式 operator</h1>
+
+1. js 語法分兩大類： 敘述句Statement, 表達(運算)式 expression
+
+2. 敘述句Statement
+=> 描述需執行動作，如 宣告, if, 賦值？
+=> var x;
+
+3. 表達(運算)式 Expression
+=> 一定會運算出一個 值
+=> var x = 1 + 2 =>  =右邊的 1 + 2 就是 Expression
+
+4. 運算式Expression 中會有 運算子Operator
+
+5. 運算子Operator 分很多種，如。。。。
+
+
+<h2>算數運算子 簡述</h2>
+
+1. js 算數運算子 即處理 +,-,*,/ 計算
+
+2. js (ECMA Scrip) 其 上述四則計算,會有 型別上的變化
+
+
+<h2>算數運算子 +號</h2>
+
+0. 若都為 數字 則正常, 但 js 中有 特別的數字 
+
+1. js 特別數字1: 無限 => 負負=無限負 ; 正正=無限正 ; 正負=不是數nan
+
+<script>
+    console.log("1. js 特別數字1: 無限 => 負負=無限負 ; 正正=無限正 ; 正負=不是數nan");
+    console.log( Infinity + Infinity );
+    console.log( -Infinity + -Infinity );
+    console.log( -Infinity + Infinity );
+</script>
+
+2. js 特別數字2: NaN 與任何 數字都為 NaN (字串例外)
+<script>
+    console.log("2. js 特別數字2: NaN 與任何都為 NaN");
+    console.log(NaN + 23);
+    console.log(NaN + "100");
+    console.log(NaN + Infinity);
+
+</script>
+
+3. js 數字 與 字串 加
+<script>
+    console.log("3. js 數字 與 字串 加");
+    console.log(100 + "100");
+    console.log(100 + "abc");
+    console.log(NaN + "1");
+    console.log(Infinity + "4");
+    console.log( null + "888" );
+
+    console.log( 100 + true );// 神奇 ="=
+
+</script>
+
+
+
+
+
+<h2>算數運算子 -減號</h2>
+
+0. 與 +號一樣, 一般number 正常減
+
+1. js 特別數字1 : 無限數 的減法 => 無限負被減=無限負 ; 無限正被加=無限正 ; 反之變NaN
+
+2. js 數字 與 其他 基本型別primitive 相減 , js 會嘗試使用 Number() 轉換:
+=> 如 true變1; false變0; null變0
+
+3. js 若與 物件, 會先找 valueOf() 是否有值
+=> 若 物件 valueOf 無值 , 則為 NaN
+=> 若 物件 valueOf 有值 , 會先 toString() 在 Number() 嘗試轉換
+
+<script>
+    console.log("1. js 特別數字1 : 無限數 的減法 => 無限負被減=無限負 ; 無限正被加=無限正 ; 反之變NaN");
+    console.log( -Infinity - Infinity );
+    console.log( Infinity + Infinity );
+    console.log( -Infinity - -Infinity );
+    console.log( Infinity - Infinity );
+
+    console.log("2. js 數字 與 其他 基本型別primitive 相減 , js 會嘗試使用 Number() 轉換:");
+    console.log( 100 - "20" );
+    console.log( 100 - true );
+    console.log( 100 - false );
+    console.log( 100 - null );
+    console.log( 100 - undefined ); 
+
+    console.log("3. js 若與 物件, 會先找 valueOf() 是否有值");
+    console.log("=> 若 物件 valueOf 無值 , 則為 NaN");
+    obj1 = {};
+    console.log( 100 - obj1 );
+    console.log( obj1.valueOf() );
+
+    console.log("=> 若 物件 valueOf 有值 , 會先 toString() 在 Number() 嘗試轉換");
+    function obj2(val) { this.hasNumber = val; };
+    obj2.prototype.valueOf = function() { return this.hasNumber; };
+    var x = new obj2(30);
+    console.log( 100 - x );
+    var y = new obj2("10");
+    console.log( 100 - y );
+    var z = new obj2(true);
+    console.log( 100 - z );
+    var h = new obj2("abc");
+    console.log( 100 - h );
+    console.log( 100 + h );
+
+</script>
+
+
+<h2>算數運算子 乘法</h2>
+
+0. 數字正常計算
+
+1. 超出範圍= +_Infinity ; 乘NaN 變NaN
+
+2. 其他值會先嘗試使用 Number() 轉換
+
+<script>
+    console.log("1. 超出範圍= +_Infinity ; 乘NaN 變NaN");
+    // 沒爆 ：）
+    console.log( 999999999999999999999999999999999999999999999999999999999 * 999999999999999999999999999999999999999999999999999999999 );
+    
+    console.log("2. 其他值會先嘗試使用 Number() 轉換");
+    console.log( 10 * "2" );
+    console.log( 10 * true );
+    console.log( 10 * false );
+    console.log( 10 * null );
+    console.log( 10 * undefined );
+    console.log( 10 * {} );
+
+</script>
+
+
+
+<h2>算數運算子 除法</h2>
+
+1. 與 乘法 類似, 會使用 Number() 嘗試進行轉換
+
+2. js 除法， 關於 被0除
+
+<script>
+    console.log("2. js 除法， 關於 被0除");
+    console.log( 1/0 );
+    console.log( -1/0 );
+    console.log( 0/0 );
+
+</script>
+
+
+<h2>算數運算子 取餘數％</h2>
+
+1. a % b => a 除以 b 後之於數
+
+2. 正負無限大 除任何數 之 餘數為 NaN
+
+3. 但任何數處以 無限大 => 餘數為自己 ?? ="=
+
+<script>
+    console.log("1. a % b => a 除以 b 後之於數");
+    console.log( 100 % 7 )
+
+    console.log("2. 正負無限大 除任何數 之 餘數為 NaN");
+    console.log( Infinity % 10 );
+    console.log( -Infinity % 5 );
+    console.log( Infinity / Infinity );
+
+    console.log("3. 但任何數處以 無限大 => 餘數為自己 ?? =''=");
+    console.log( 7 % Infinity );
+    console.log( -5 % Infinity );
+
+</script>
+
+
+
+
+
+
+

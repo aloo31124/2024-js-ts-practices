@@ -1,0 +1,101 @@
+
+https://www.oxxostudio.tw/articles/201908/js-array.html
+<br>
+
+1. 陣列 新增, 移除:
+<br>
+=> 移除最後一個
+<br>
+=> 移除第一個
+<br>
+=> 該陣列後面新增3個值
+<br>
+=> 該陣列後面新增2個值
+<br>
+
+
+2. 陣列切割,重組
+<br>
+=> 移除陣列中間三個元素
+<br>
+=> 替換陣列中間三個元素
+<br>
+
+
+3. find() 與 filter() 差異
+<br>
+=> [3,6,11,22,53,1,6,-2] 找到大於 10 的數中,最小的數
+<br>
+=> [3,6,11,22,53,1,6,-2] 找到所有偶數
+<br>
+
+4. forEach(), map(), reduce() 差異
+<br>
+=> ex1. [3,6,11,22,53,1,6,-2] ,每筆數字,若大於20,則乘2 後 減 1
+<br>
+==> forEach() return 無效
+<br>
+==> forEach() 需使用三個參數，才可修改該陣列本身
+<br>
+==> map() 可 return 可給新陣列
+<br>
+===> reduce 不適合逐個計算回傳
+<br>
+===> 但 reduce 可把上一個元素計算至串替至下一個, 可逐個計算
+
+<script>
+    console.log("4. forEach(), map(), reduce() 差異");
+    console.log("=> ex1. [3,6,11,22,53,1,6,-2] ,每筆數字,若大於20,則乘2 後 減 1");
+    let arr4_1 = [3,6,11,22,53,1,6,-2];
+
+
+    console.log("==> forEach() return 無效");
+    let b = 0;
+    let r4_1 = arr4_1.forEach(e => {
+        if(e > 20) {
+            return e * 2 - 1; //=> 無效
+        }
+        return e;
+    });
+    console.log(r4_1);
+
+
+    console.log("==> forEach() 需使用三個參數，才可修改該陣列本身");
+    arr4_1.forEach((item, index, arr) => {
+        if(item > 20) {
+            arr[index] = item * 2 - 1;
+        }
+    });
+    console.log(arr4_1);
+
+
+    console.log("==> map() 可 return 可給新陣列");
+    let arr4_2 = [3,6,11,22,53,1,6,-2];
+    let r4_2 = arr4_2.map((x) => {
+        if(x > 20) {
+            return x*2 - 1;
+        }
+        return x;
+    });
+    console.log(r4_2);
+
+
+    console.log("===> reduce 不適合逐個計算回傳");
+    let arr4_3 = [3,6,11,22,53,1,6,-2];
+    let r4_3 = arr4_3.reduce(x => {
+        if(x > 20) {
+            return x*2 - 1;
+        }
+        return x;
+    });
+    console.log(r4_3);
+
+
+    console.log("===> 但 reduce 可把上一個元素計算至串替至下一個, 可逐個計算");
+    let arr4_4 = [3,6,11,22,53,1,6,-2];
+    let r4_4 = arr4_4.reduce((total, val) => { return total + val; });
+    console.log(r4_4);
+
+</script>
+
+

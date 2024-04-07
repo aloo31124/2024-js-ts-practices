@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch12 ex</title>
+    <script>
+        // 1. head內進行元素抓取
+        document.querySelector("#hellow1").textContent = "hellow1";
+    </script>
+</head>
+
+<script>
+    // 2. 在 heade後, body 前, 元素 display 之前
+    document.querySelector("#hellow2").textContent = "hellow2, 2. 在 heade後, body 前, 元素 display 之前";
+</script>
+
+<body>
+
+    <script>
+        // 3. 在body內, 元素 display 之 "前"
+        document.querySelector("#hellow3").textContent = "hellow3, 在body內, 3. 在body內, 元素 display 之前";
+    </script>
+
+ 
+    
+
+    <h1>ch12 script 位置差異測試</h1>
+    <p id="hellow1"></p>
+    <p id="hellow2"></p>
+    <p id="hellow3"></p>
+    <p id="hellow4"></p>
+    <p id="hellow5"></p>
+
+    <script>
+        // 4. 在body內, 元素 display 之 '後'
+        document.querySelector("#hellow4").textContent = "hellow4, 4. 在body內, 元素 display 之 '後' ";
+    </script>
+
+
+
+    
+</body>
+</html>
+<script>
+    // 5. 在 html元素外, 元素 display 之 '後'
+    document.querySelector("#hellow5").textContent = "hellow5, 5. 在 html元素外, 元素 display 之 '後'";
+</script>
+
+修改2-1

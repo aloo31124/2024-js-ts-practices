@@ -1,0 +1,197 @@
+<h1>this 面試題</h1>
+https://www.youtube.com/watch?v=RmxUKDsYHmc
+<br>
+
+<h2>四種this 綁定</h2>
+=> ex: 小明女朋友範例 ="=
+<br>
+
+1. 默認綁定 => 無特別指定, 就會向外層找, 成為 全域 window
+<br>
+2. 隱式綁定 => 創建一個對象, 有明確屬性
+<br>
+3. 硬綁定 => 創建一個 [對象方法], 並使用 call, apply 硬綁定 this 綁定對象
+<br>
+4. 構造函數綁定 (constructor, 建構子綁定) => 使用小紅 變量名 進行 實例化
+<br>
+
+<script>
+    console.log("1. 默認綁定 => 無特別指定, 就會向外層找, 成為 全域 window");
+    function allGirl() {
+        console.log(this); // => 外層找(?)
+    }
+    allGirl();
+
+
+    console.log("2. 隱式綁定 => 創建一個對象, 有明確屬性");
+    // 創建對象
+    const oneGirl = {
+        name: "小紅",
+        heigh: 160,
+        //創建 對象函式
+        showDetail() {
+            console.log("姓名: " + this.name);
+            console.log("身高: " + this.heigh);
+        },
+        showDetail2: function() {
+            console.log("姓名: " + this.name);
+            console.log("身高: " + this.heigh);
+        }
+    }
+    oneGirl.showDetail();
+    //oneGirl.showDetail2();
+
+
+    console.log("3. 硬綁定 => 創建一個 [對象方法], 並使用 call, apply 硬綁定 this 綁定對象");
+    const girlName = {
+        name: "小紅", // 不說 ="=
+        sayName: function() {
+            console.log("我女友姓名 : " + this.name);
+        }
+    }
+    const girl1 = { name: "小白" };
+    const girl2 = { name: "小黃" };
+    //硬綁定: call , apply
+    girlName.sayName.call(girl1);
+    //Uncaught TypeError: Cannot read properties of undefined (reading 'call') => ?
+    girlName.sayName.apply(girl2);
+    
+    // 延伸: https://jianline.com/javascript-bind-call-apply/
+    // apply與call二者的作用完全一樣，只是第二個參數的接受方式有所區別。
+    // => call的第2個參數需要把參數依序傳入，就如同函式的參數。
+    // => apply的第2個參數則必須是一個 array-like object，也就是參數必須以陣列形式傳入。
+    // bind() => ??? 
+    
+
+    console.log("4. 構造函數綁定 (constructor, 建構子綁定) => 使用小紅 變量名 進行 實例化");
+    function wife(name) {
+        this.name = name;
+        this.sayName = function() {
+            console.log("我老婆: " + this.name);
+        }
+    }
+    const myWirf = new wife("小紅");
+    name = "小白";
+    myWirf.sayName();
+
+    
+</script>
+
+
+<h2>面試題1: 俄羅斯娃娃函式印this, 默認與嚴格</h2>
+=> 如下 this 印出為何?
+<br>
+
+<script>
+    console.log("面試題1: 俄羅斯娃娃函式印this, 默認與嚴格");
+
+    function a() {
+        function b() {
+            function c() {
+                "use strict";
+                function d() {
+                    console.log(this);
+                }
+                d();
+                console.log(this);
+            }
+            c();
+            console.log(this);
+        }
+        b();
+        console.log(this);
+    }
+    a();
+    console.log(this);
+</script>
+
+
+<h2>面試題2: 俄羅斯娃娃物件, this找存在屬性</h2>
+
+<script>
+    console.log("面試題2: 俄羅斯娃娃物件, this找存在屬性");
+
+    const name = "小白";
+    function outSayName() {
+        console.log(this.name);
+    }
+
+    const girl = {
+        name: "小紅",
+        sayName: function() {
+            console.log(this.name);
+        },
+        women: {
+            name: "小黃",
+            sayName: function() {
+                console.log(this.name);
+            }
+        },
+        outSayName: outSayName,
+    }
+
+    girl.sayName();
+    girl.women.sayName();
+    girl.outSayName();
+
+</script>
+
+
+
+<h2>面試題3: 有點複雜的存入函式</h2>
+=> 函式(fun) 給你 就給你了 :)
+<br>
+
+<script>
+    console.log("面試題3: 有點複雜的存入函式");
+
+    var name3 = "小紅";
+    //Cannot redeclare block-scoped variable 'name'.javascript
+    function outSayName3() {
+        var name3 = "小白";
+        console.log(this.name3);
+    }
+    var Man3 = {
+        name3: "小黃",
+        sayName3: function() {
+            console.log(this.name3);
+        },
+        insiteFun: function() {
+            return function() {
+                console.log(this.name3);
+            }
+        }
+    }
+
+
+    // 外層, 默認綁定 => window
+    outSayName3();
+
+    // 此為函式表達式, Man3 只是將函式給c，並進行隱性綁定
+    var c = Man3.sayName3;
+    c();
+
+    // 對 Man3 對象 賦予一個 方法 a 為 outSayName3 => 隱性綁定
+    Man3.a = outSayName3;
+    Man3.a();
+
+    //
+    function globleFun(fun) {
+        // 全局函式
+        return fun(); // 執行方法
+    }
+    globleFun(Man3.sayName3);
+
+    //
+    e = Man3.insiteFun();
+    e();
+
+</script>
+
+
+<h2>總結</h2>
+=> this 是因為 函式出現 而出現
+<br>
+=> this 是 動態綁定, 找無就向外找
+<br>
+

@@ -1,0 +1,167 @@
+<h1>ㄧ元運算子, 比較運算子</h1>
+
+
+<h2>正負號</h2>
+
+0. 可代一般數字 正負
+<br>
+1. 基本型別 有正負, 會先使用 Number() 嘗試轉換
+<br>
+2. 物件型別 有正負, 先透過物件 valueOf() 取對應數
+<br>
+
+<script>
+    console.log("1. 基本型別 有正負, 會先使用 Number() 嘗試轉換");
+    var a = "+100";
+    var b = "-100";
+    console.log( +a );
+    console.log( -a );
+    console.log( +b );
+    console.log( -b );
+
+    console.log("2. 物件型別 有正負, 先透過物件 valueOf() 取對應數");
+    function obj1(val) {   this.hasNumber = val; };
+    obj1.prototype.valueOf = function() { return this.hasNumber; };
+    var x = obj1(-10);
+    console.log(-x);//?
+</script>
+
+<h2>遞增++/遞減--</h2>
+
+1. ++/-- 放後面, log 會先顯示原本的數值
+<br>
+
+<script>
+    var a = 10;
+    var b = 10;
+    console.log(a++);
+    console.log(++b);
+    console.log(a);
+    console.log(b);
+
+</script>
+
+
+<h2>比較運算子 </h2>
+
+<h2>自動轉型造成 js == 比較混亂</h2>
+
+1. 數字 字串 混肴
+<br>
+2. 布林 與 字串,數字混淆
+<br>
+
+<script>
+    console.log("1. 數字 字串 混肴");
+    console.log( 20 == "20");
+
+    console.log("2. 布林 與 字串,數字混淆");
+    console.log( true == 'true' );
+    console.log( false == 'false' );
+    console.log( true == 1 );
+    console.log( false == 0 );
+
+</script>
+
+
+3. 空陣列,空字串 與 0
+<br>
+4. null, undefined 
+<br>
+
+<script>
+    console.log("3. 空陣列,空字串 與 0");
+    console.log( [] == [] ); //?? =''=
+    console.log( [] == ![] );
+    console.log( [] == 0 );
+    console.log( [] == '' );
+    console.log( [''] == '' );
+    console.log( [0] == 0 );
+    console.log( [''] == 0 );
+    console.log( [0] == '' );
+
+    console.log("4. null, undefined ");
+    console.log( null == undefined );
+    console.log( [null] == 0 );
+    console.log( [null] == '' );
+    console.log( [undefined] == 0 );
+    console.log( [undefined] == '' );
+    
+</script>
+
+<h2>js使用 === 嚴謹比較</h2>
+
+1. js 中使用 === 會嚴謹必較, 因為 js 不會自動轉型 => 不會出現上述判斷混亂問題
+<br>
+2. !== 為相同之意 
+<br>
+
+<script>
+    console.log("1. js 中使用 === 會嚴謹必較, 因為 js 不會自動轉型");
+    console.log( 20 === "20" );
+    console.log( true === 1 );
+    console.log( null === undefined );
+    //console.log( [null] === 0 );
+    //console.log( [] === '' );
+
+</script>
+
+
+<h2>自動轉型 小結,補充</h2>
+1. 布林值轉換, true變1; false變0
+<br>
+2. 字串與 數字 比較, 字串會自動使用 Number() 先嘗試轉換
+<br>
+3. 物件 與 基本型別 比較, 先透過 物件 valueOf 取得對應之值, 在比較
+<br>
+4. 物件 與 物件 比較, 會確認是否為參考 同一個 實體
+<br>
+5. NaN 不等於  NaN
+<br>
+
+
+<h2>大於> /小於< </h2>
+
+0. 一般數字比較
+<br>
+1. 若非數字, 同樣使用 Number 轉型
+<br>
+2. 布林值, true變1; false變0 進行比較
+<br>
+3. 字串 則比較 字母順序 => 不太懂 
+<br>
+4. 物件 比較大小, 一樣會取 valueOf()方法, 若無valueOf()則嘗試 toString()
+<br>
+
+<script>
+    console.log("0. 一般數字比較");
+    console.log( 20 < 40 );
+
+    console.log("1. 若非數字, 同樣使用 Number 轉型");
+    console.log( "80" > 40 );
+    console.log( "25" <= 25 );
+
+    console.log("2. 布林值, true變1; false變0 進行比較");
+    console.log( true > 0 );
+    console.log( false < 5 );
+
+    console.log("3. 字串 則比較 字母順序 => 不太懂 ");
+    console.log( "a" < "z" );
+    console.log( "baz" < "bz" );
+
+    console.log("4. 物件 比較大小, 一樣會取 valueOf()方法, 若無valueOf()則嘗試 toString()");
+    function obj2(val) { this.hasNumber = val; };
+    obj2.prototype.valueOf = function() { return this.hasNumber; };
+    var coin1 = new obj2("50");
+    var coin2 = new obj2(10);
+    console.log( coin1 > coin2 );
+
+</script>
+
+
+
+
+
+
+
+

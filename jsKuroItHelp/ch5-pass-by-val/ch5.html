@@ -1,0 +1,148 @@
+<h1>js 傳值, 傳址</h1>
+
+
+<h2>基本型別, 物件 = 差異</h2>
+1. 基本型別 比較 "值" : var a = var b
+<br>
+2. 物件 比較 "址" : obj1 != obj2
+<br>
+
+<script>
+    console.log("1. 基本型別 比較 值 : var a = var b");
+    var a = 5;
+    var b = 5;
+    console.log( a === b );
+
+    console.log("2. 物件 比較 址 : obj1 != obj2");
+    obj1 = { val : 5 };
+    obj2 = { val : 5 };
+    console.log( obj1 === obj2 );
+    console.log( obj1.val === obj2.val );
+
+</script>
+
+<h2>基本型別 傳值, 物件傳址</h2>
+
+1. 基本型別 primitive 為 傳值 pass by vale
+<br>
+=> a存入b, a修改 不影響b
+<br>
+
+<script>
+    console.log("1. 基本型別 primitive 為 傳值 pass by vale");
+    var a = 10;
+    var b = a;
+    console.log(a);
+    console.log(b);
+
+    console.log("=> a存入b, a修改 不影響b");
+    a = 100;
+    console.log(a);
+    console.log(b);
+
+</script>
+
+
+2. 物件型別 object 為 傳址 pass by reference
+<br>
+=> obj1 存入 obj2 , 修改 obj1 (的屬性) 會影響 obj2  => 此為 淺拷貝
+<br>
+
+
+<script>
+
+    console.log("2. 物件型別 object 為 傳址 pass by reference");
+    coin1 = { value : 10 };
+    coin2 = coin1;
+    console.log(coin1.value);
+    console.log(coin2.value);
+
+    console.log("=> obj1 存入 obj2 , 修改 obj1 (的屬性) 會影響 obj2 ");
+    coin1.value = 90;
+    console.log(coin1.value);
+    console.log(coin2.value);
+
+</script>
+
+
+<h2>補充, 深拷貝, 淺拷貝</h2>
+https://www.youtube.com/watch?v=gecIxUKZRqw&t=250s
+<br>
+1. 使用 ... 展開 => 就不會有 淺拷貝問題, 變為 深拷貝
+<br>
+2. 使用 json 轉換 => 就不會有 淺拷貝問題, 變為 深拷貝
+<br>
+
+
+<script>
+    console.log("1. 使用 ... 展開")
+    const copy1 = { copyName: "copycopy" };
+    const copy2 = {...copy1};
+    copy1.copyName = "newCopyName";
+    console.log(copy1.copyName);
+    console.log(copy2.copyName);
+
+    console.log("2. 使用 json 轉換 => 就不會有 淺拷貝問題, 變為 深拷貝")
+    const json1 = { jsonName: "oldJsonName" };
+    const json2 = JSON.parse( JSON.stringify(json1) );
+    json1.jsonName = "newJsonName";
+    console.log(json1.jsonName);
+    console.log(json2.jsonName);
+
+</script>
+
+
+
+
+
+<h2>函式 對 物件 重新賦值, 為 傳分享(??) pass by sharing :) </h2>
+
+1. js function 中，物件 被 重新賦值 , 不會影響外層 物件
+
+2. 反之, js function 中 物件 是 屬性被改，仍會影響 外層物件
+
+<script>
+    console.log("1. js function 中，物件 被 重新賦值 , 不會影響外層 物件");
+    obj1 = { value : 100 };
+    obj2 = obj1;
+    function changeVal(obj) { 
+        obj = { value : 87 }; 
+        console.log("insite: " + obj.value);
+    };
+    changeVal(obj1);
+    console.log(obj1.value);
+    console.log(obj2.value);
+
+    console.log("2. 反之, js function 中 物件 是 屬性被改，仍會影響 外層物件");
+    person1 = { value : 100 };
+    person2 = person1;
+    function changeVal2(obj) { 
+        obj.value = 99; 
+        console.log("insite2: " + obj.value);
+    };
+    changeVal2(person1);
+    console.log(person1.value);
+    console.log(person2.value);
+    
+
+</script>
+
+
+<h2>(小結)js傳遞三方法探討 pass by...</h2>
+
+1. kuro 認為 js 其實是 pass by sharing
+=> 參考 ECMA文件
+
+2. js 中 物件 是 可變的 mutable
+=> 物件 若 修改 => 會影響參考副本
+=> 物件 若 重新賦值 => 則產生一個新的實體
+
+3. js 中 基本型別primitive 為 不可修改 immutable
+
+
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+
+
+<h2>Introduction</h2>
+<p>
+    Introduction Using React 18, create a "Like/Dislike" component for news articles. 
+The component should be the default export (use export default).
+</p>
+
+<h2>Requirements</h2>
+<p>
+    You are required to create Like and Dislike buttons following the guidelines below:
+
+</p>
+
+
+
+
+import cx from 'classnames';
+import React from 'react';
+export default () => {
+  const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
+
+  useEffect(() => {
+    document.querySelector('.like-button').textContent = `Like | ${likeCount}`;
+    document.querySelector('.dislike-button').textContent = `Dislike | ${dislikeCount}`;
+  }, [likeCount, dislikeCount]);
+
+  return (
+    <>
+      <div>
+      <div>
+        <button className="like-button" 
+                onClick={() => setLikeCount(likeCount + 1)}>Like | {likeCount}
+        </button>
+        <button className="dislike-button" 
+                onClick={() => setDislikeCount(dislikeCount + 1)}>Dislike | {dislikeCount}
+        </button>
+      </div>
+      </div>
+      <style>{`
+                    .like-button, .dislike-button {
+                        font-size: 1rem;
+                        padding: 5px 10px;
+                        color:   #585858;
+                    }
+
+                    .liked, .disliked {
+                        font-weight: bold;
+                        color: #1565c0;
+                    }
+                `}</style>
+    </>
+  );
+  
+};

@@ -1,0 +1,83 @@
+<h1>函式基本</h1>
+
+<h2>函式 是 物件型別</h2>
+
+1. 如題, 函式 是一種 物件型別, 但 typeof 卻顯示 function =''=
+
+2. 可想像成 可被呼叫beinvoked 特殊值
+
+3. 函式 可視為 將多段程式碼 {}包裝 起來, 重復使用
+
+
+<h2>函式 基本組成三部分</h2>
+
+1. 名稱
+
+2. () 參數 argument
+
+3. {} 執行內容
+
+<script>
+    console.log("函式 平方簡易範例 : ")
+    function square(num) {
+        return num * num;
+    }
+
+    console.log(square(2));
+    console.log(square(4));
+</script>
+
+
+<h2>三種新增函式方法</h2>
+
+1. 函式宣告 function declare
+
+2. 函式運算式 function expression / 匿名函式
+=> 補充: 也可命名,但只有內層可用, 無太大意義 ='=
+
+3. new function
+=> 感覺少用, 先略 
+
+<script>
+    console.log("1. 函式宣告 function declare");
+    function square1(num) {
+        return num * num;
+    }
+    console.log(square1(3));
+
+    console.log("2. 函式運算式 function expression / 匿名函式");
+    var square2 = function(num) {
+        return num * num;
+    }
+    console.log(square2(5));
+
+    console.log("3. new function => 略");
+</script>
+
+
+<h2>變數的有效 範圍Scope => 函式最小範圍</h2>
+
+1. 此為 區域變數, 全域變數 觀念
+
+2. 函式function 為切割 變數 最小範圍 Scope
+
+<script>
+    console.log("2. 函式function 為切割 變數 最小範圍 Scope");
+    var x = 20;
+    function fun1(y){
+        var x = 50;
+        return x + y;
+    };
+
+    console.log(x);
+    console.log(fun1(1));
+
+</script>
+
+
+<h2>js中變數 提升hoisting</h2>
+
+
+
+
+

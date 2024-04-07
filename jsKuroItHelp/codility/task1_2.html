@@ -1,0 +1,307 @@
+
+<p>
+    Infinite Creativity Technology invites you to take a programming test
+    190 minutes for 3 tasks
+</p>
+
+
+<p>
+    ======================================================
+    <br>
+     
+    Before you begin
+    1. There are 3 tasks in the test. You can solve them in any order.
+    
+    2. There's no option to pause. Make sure you will not be interrupted for 190 minutes.
+    
+    3. Your solution(s) should consider all possible corner cases and handle large input efficiently. 
+    Passing the example test does not indicate that your solution is correct. The example test is not part of your final score.
+    
+    4.After finishing the test you will receive feedback containing your score. See example feedback.
+    
+    5. If you accidentally close your browser, use the invitation link to get back to your test.
+    
+    6. Hint: you can use your own IDE and use copy-paste, but make sure your solution compiles in Codility's environment.
+    
+    You can write your solution(s) in JavaScript.
+    
+    
+    ======================================================
+    <br>
+</p>
+
+
+<p>
+
+    You are given an array A consisting of N integers. 
+    Your task is to return an array of N objects that share the same prototype, 
+    each of whom should have a value() method, which called on i-th object should return the integer A[i].
+    
+    
+    The value() method of all objects must be the same method and it cannot be an own property of those objects 
+    (for an object O the following O.hasOwnProperty('value') should be false). Write a function
+        function solution(A)
+    
+    that, given an array A of N integers, returns an array T of N JavaScript objects. 
+    For any two indices i, j < N, the following conditions should be true:
+        T[i].value() === A[i] 
+        T[j].value() === A[j] 
+        T[i].value === T[j].value 
+        !T[i].hasOwnProperty('value') 
+        !T[j].hasOwnProperty('value')
+    
+    where
+        T = solution(A)
+    
+    
+    For example, given A = [4, 2], your function should return such array T, that
+    
+        T[0].value() === 4
+        T[1].value() === 2
+        T[0].value === T[1].value
+        !T[0].hasOwnProperty('value')
+        !T[1].hasOwnProperty('value')
+    
+    Assume that: 
+        N is an integer within the range [1..200]; 
+        each element of array A is an integer within the range [−1,000,000,000..1,000,000,000].
+    
+    In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
+    <br>
+</p>
+
+<script>
+    function solution(A) {
+        Object.prototype.value = function() {
+            return this.val;
+        }
+        object = {
+            val: 0,
+        }
+        const arr = [];
+        for(let i=0; i<A.length; i++) {
+            obj = new Object();
+            obj.val = A[i];
+            arr[i] = obj;
+        }
+        return arr;
+    }
+
+    const A = [4, 2];
+    const T = solution(A);
+    console.log(T[0].value() === A[0]);
+    console.log(T[1].value() === A[1]);
+    console.log(!T[0].hasOwnProperty('value'));
+    console.log(!T[1].hasOwnProperty('value'));
+</script>
+
+
+<p>
+
+    ======================================================
+<br>
+
+
+    You would like to add the ability to render comments on a previously static website. 
+    The comments are submitted only via a mobile app, so the website itself just needs to display the latest comments.
+    <br>
+    Comments should be fetched on the client (browser) side and then displayed inside all tags 
+    that have the class comment-list (there can be more than one such tag).
+    <br>
+    All of these elements will have a data-count attribute determining the number of comments to fetch.
+    <br>
+    Here's an example of such a tag:
+    <br>
+    <!-- 
+    <div class="comment-list" data-count=10></div>
+     -->
+    
+    The comment data for this tag can be obtained by making an AJAX call to the following mocked endpoint:
+    <br>
+    https://www.example.com/comments?count=10
+    <br>
+    
+    In the example above we are asking for ten comments. The response format is as follows:
+    <br>
+    
+    [{ "id": 123, "username": "User 1", "message": "Cool product!" }, 
+    { "id": 456, "username": "User 2", "message": "Didn't like it that much" }, 
+    ... ]
+    <br>
+     
+    While the comments are being loaded, the comment-list elements should be filled with the text Loading.... 
+    Please use only textContent for setting the text content of the elements. 
+    The DOM structure of each comment is expected to be:
+    <br>
+    <!-- 
+    <div class="comment-item"> 
+        <div class="comment-item__username">{username}</div> 
+        <div class="comment-item__message">{message}</div> 
+    </div>
+     -->
+    
+    The comments should appear one after the other, with the order preserved. 
+    If any error occurs during the loading, the tag should be left empty. Write a function:
+    <br>
+        function solution();
+    <br>
+    that, given a DOM tree representing an HTML document, renders comments as described above.
+    <br> 
+    You can use either the XMLHttpRequest or the fetch API. 
+    Please remember that using xhr.async = false; will not work. 
+    You can also use jQuery.ajax and similar methods to access the API. 
+    <br>
+    For example, given a document containing
+    <!-- 
+    <div class="comment-list" data-count=2></div>ß
+     -->
+    <br>
+    and the response: 
+    [{ "id": 123, "username": "User 1", "message": "Cool product!" }, 
+    { "id": 456, "username": "User 2", "message": "Didn't like it that much" }]
+    <br>
+    
+    then afterwards the document should contain: 
+    
+    <!-- 
+    <div class="comment-list" data-count=2> 
+        <div class="comment-item"> 
+            <div class="comment-item__username">User 1</div> 
+            <div class="comment-item__message">Cool product!</div> 
+        </div>
+        <div class="comment-item">
+            <div class="comment-item__username">User 2</div>
+            <div class="comment-item__message">Didn't like it that much</div>
+        </div>
+    </div>
+     -->
+    In another example, given a document containing 
+    <!-- 
+    <div class="comment-list" data-count=2></div> 
+    <div class="comment-list" data-count=2></div>
+     -->
+    <br>
+    
+    and the same response as in the previous example, then afterwards the document should contain: 
+    <!-- 
+    <div class="comment-list" data-count=2>
+    ...
+     -->
+    <br>
+
+    and the same response as in the previous example, then afterwards the document should contain: 
+    <!-- 
+    <div class="comment-list" data-count=2>
+     -->
+    <br>
+
+    
+    but an error occurs while loading comments. In this case, the document should remain the same.
+    <br>
+    
+    Assumptions: * https://www.example.com is a mocked service − it can be accessed only in the Codility UI. 
+    * the DOM tree represents a valid HTML5 document; 
+    * jQuery 2.1.4 is supported; 
+    * the data-count parameter will be in the range 1 to 100;
+    * the AJAX call response text will contain valid JSON with no more than the data-count number of comments; 
+    * the response data may or may not be sanitised;
+    * comments may contain HTML markup, we expect you to render the content without any HTML markup inside the comments; 
+    * the elements with the comment-list class cannot be inside other such elements.
+</p>
+
+<div class="comment-list" data-count="2">
+</div>
+
+
+<script>
+    
+    // get comment list , and loading
+    let commentList = document.querySelector(".comment-list");
+    let loadingNode = document.createTextNode("loading...");
+    commentList.appendChild(loadingNode);
+
+    // start ajax
+    const url = "https://www.example.com/comments?count=10";
+    let isAsync = true;
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", url, isAsync);
+
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4) { 
+            if(xhr.status === 200) {
+                displayCommentList(xhr.responseData); 
+            } else if(xhr.status !== 200) {
+                commentList.removeChild(loadingNode);
+                console.log("error status code: " + xhr.status);
+                let errorText = document.createTextNode("error!!!, status code: " + xhr.status);
+                commentList.appendChild(errorText);
+            }
+            
+        }
+    }
+
+    function displayCommentList(dataList) {
+        const dataCount = commentList.getAttribute("data-count");
+
+        let _dataCount = 1;
+        dataList.forEach(data => {
+            console.log(_dataCount);
+            
+            // new item
+            let newItem = document.createElement("div");
+            newItem.className = "comment-item"
+
+            // new user name
+            let newItemUserName =  document.createElement("div");
+            let newItemUserNameText = document.createTextNode(data.username);
+            newItemUserName.className = "comment-item__username";
+            newItemUserName.appendChild(newItemUserNameText);
+            newItem.appendChild(newItemUserName);    
+            // new message 
+            let newItemMessage =  document.createElement("div");
+            let newItemMessageText = document.createTextNode(data.message);
+            newItemMessage.className = "comment-item__message";
+            newItemMessage.appendChild(newItemMessageText);
+            newItem.appendChild(newItemMessage);    
+
+            // append item
+            commentList.appendChild(newItem);
+            _dataCount ++;
+        });
+
+        commentList.removeChild(loadingNode);
+    }
+    
+
+    
+
+    // 測試
+    const dataList = [
+        { "id": 123, "username": "User 1", "message": "Cool product!" }, 
+        { "id": 456, "username": "User 2", "message": "Didn't like it that much" },
+        { "id": 333, "username": "User 3", "message": "ccccc" },
+        { "id": 444, "username": "User 4", "message": "bbbbbbb" },
+        { "id": 555, "username": "User 4", "message": "5555" },
+    ];
+
+    // 測試
+    displayCommentList(dataList);
+    console.log(commentList);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,171 @@
+<h1>原生JavaScript实现call、apply和bind - Web前端工程</h1>
+
+https://www.youtube.com/watch?v=eT7z6ORRmO0&t=11s
+<br>
+
+
+<h2>call 介紹 1, 簡述 用法, 綁定 this</h2>
+
+1. call 可當做 對 建構函式 其 this 的硬綁定, 修改 this 指向
+<br>
+2. fun1.call(obj) 等同讓 obj 內新增 一個fun1, 讓其綁定 obj 的 this
+<br>
+=> 也就是視為 egg 去調用該 person 函式
+<br>
+
+<script>
+    console.log("1. call 可當做 對 建構函式 其 this 的硬綁定");
+    function person() {
+        name = "函式內名稱";
+        console.log(this.name);
+    }
+    person(); // 印 函式內名稱
+
+    egg = { name: "雞蛋先生" };
+    person.call(egg); // 印蛋先生
+
+    console.log("2. fun1.call(obj) 等同讓 obj 內新增 一個fun1, 讓其綁定 obj 的 this");
+    egg12 = {
+        name: "蛋先生1-2",
+        person: function() {
+            console.log(this.name);
+        }
+    }
+    egg12.person();
+</script>
+
+補充:
+<br>
+1. fun對象 本身是 建構函式, 建構函式會有個 prototype
+<br>
+
+
+
+<h2>call 介紹2, 自定義 newCall 理解 call 運作</h2>
+
+1. fun對象, 本身就是 建構函式, 建構函式也有 原型物件 prototype
+<br>
+2. 可在 函式 原型物件 新增 newCall( obj ), 並傳入物件 obj
+<br>
+3. 上述函式 this 指向為何？ 印出測試
+<br>
+4. 傳入之 obj 怎麼綁定該函式? 是否需要 delete? 為何？
+<br>
+
+
+<script>
+    console.log(" ========== <h2>call 介紹2, 自定義 newCall 理解 call 運作</h2> ========== ");
+
+    function person2() {
+        name = "函式內名稱2";
+        console.log(this.name);
+    }
+    egg1_2 = { name: "蛋先生1_2" }
+
+    // 1. fun對象, 本身就是 建構函式, 建構函式也有 原型物件 prototype
+    // 2. 可在 函式 原型物件 新增 newCall( obj ), 並傳入物件 obj
+    // 如下請實作 : 
+
+    Function.prototype.newCall = function(obj) {
+        // 3. 上述函式 this 指向為何？ 印出測試
+        console.log(this);
+
+        //4. 傳入之 obj 怎麼綁定該函式? 是否需要 delete? 為何？
+        obj.p = this;
+        obj.p();
+        delete obj.p;
+    }
+
+    person2.newCall(egg1_2); // 印出什麼？
+
+</script>
+
+
+<h2>call 多個參數</h2>
+1. call 使用多個參數時, 第一個參數是 this, 但後面多的參數是自定義
+<br>
+2. 先使用 call 本身 來實作多個參數 : egg1_1, "aa", "bb", "cc", "dd", 結果如何？
+<br>
+3. 自己實作一個 newCall 來重現 call 
+<br>
+
+<script>
+    console.log(" ========== <h2>call 多個參數</h2> ========== ");
+
+    console.log(" 2. 先使用 call 本身 來實作多個參數 : egg1_1, \"aa\", \"bb\", \"cc\", \"dd\", 結果如何？ ");
+    function personArr1_3(a, b, c, d) {
+        console.log(this.name);
+        console.log(a, b, c, d);
+    }
+    egg1_3 = { name: "egg1_3" };
+    // 如下請實作 2. 先使用 call 本身 來實作多個參數 : egg1_1, \"aa\", \"bb\", \"cc\", \"dd\", 結果如何？
+    personArr1_3.call(egg1_3, "aa", "bb", "cc", "dd"); // 印出結果？
+
+    // ==================================================
+
+    console.log("3. 自己實作一個 newCall 來重現 call ");
+    function personArr1_4(a, b, c, d) {
+        console.log(this.name);
+        console.log(a, b, c, d);
+    }
+    egg1_4 = { name: "egg1_4" };
+
+    // 自己實作 fun 原型函式 newCall
+    Function.prototype.newCall1_4 = function(obj) {
+        obj.p = this;
+        // 先釐清如何印出該 函式 之所有參數
+        console.log(arguments);
+        
+        for(i=0; i<arguments.length; i++) {
+            console.log(arguments[i]);
+        }
+    }
+
+    personArr1_4.newCall1_4(egg1_4, "aa", "bb", "cc", "dd");
+
+
+</script>
+
+
+
+
+
+<h2>apply 多個參數</h2>
+
+<script>
+    console.log(" ========== <h2>apply 多個參數</h2> ========== ");
+
+    function personArr2_1(a, b, c, d) {
+        return {
+            name: this.name,
+            a: a, b: b, c: c, d: d,
+        }
+    }
+
+    egg2_1 = { name: "蛋先生apply" }
+
+    console.log( personArr2_1.apply(egg2_1, ["aa", "bb", "cc", "dd"]) );
+
+</script>
+
+
+
+<h3>bind 多個參數</h3>
+
+
+<script>
+    console.log(" ========== <h2>apply 多個參數</h2> ========== ");
+
+    function personArr3_1(a, b, c) {
+        console.log(this.name);
+        console.log(a, b, c);
+    }
+
+    egg3_1 = { name: "蛋先生 3_1" }
+
+    personArr3_1.bind(egg3_1, "aa", "bb", "cc")();
+
+</script>
+
+
+

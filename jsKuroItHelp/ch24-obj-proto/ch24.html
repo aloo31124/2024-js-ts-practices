@@ -1,0 +1,102 @@
+<h1>重新認識 JavaScript: Day 24 物件與原型鏈</h1>
+https://ithelp.ithome.com.tw/articles/10194154
+<br>
+
+
+<h2>[原型練] 範例1: 洛克人 繼承多個人物 </h2>
+1. 原型繼承, 就是讓 A 原型繼承 B 後, 可讓 A 存取 B 
+<br>
+2. 原型繼承 , 方法1: Object.setPrototypeOf( A , B); => 讓 A原型繼承 B
+<br>
+=> A 就是 繼承者
+<br>
+=> B 就是 原型物件
+<br>
+3. rockMan -繼承-> cutMan -繼承-> superMan ==> 此便是 js 中之 原型練, 如下實作
+<br> 
+4. 請問 js 中 同一個物件 C 可否同時繼承 D,E 物件 => 不可！ , 請實作
+<br>
+
+<script>
+    console.log(" ==================== <h2>[原型練] 範例1: 洛克人 繼承多個人物 </h2> ==================== ");
+
+    console.log("3. rockMan -繼承-> cutMan -繼承-> superMan ==> 此便是 js 中之 原型練, 如下實作")
+    const superMan = { superMan: true };
+    const cutMan = { cutMan: true };
+    const rockMan = { rockMan: true };
+
+    // 請實作
+    Object.setPrototypeOf(cutMan, superMan);
+    Object.setPrototypeOf(rockMan, cutMan);
+    console.log("superMan" in rockMan);
+    console.log("cutMan" in rockMan);
+    console.log("rockMan" in rockMan);
+
+    console.log("4. 請問 js 中 同一個物件 C 可否同時繼承 D,E 物件 => 不可！ , 請實作");
+    const A1_1 = { isA: true };
+    const B1_1 = { isB: true };
+    const C1_1 = { isC: true };
+
+    // 請實作
+    Object.setPrototypeOf(A1_1, B1_1);
+    Object.setPrototypeOf(A1_1, C1_1);
+    console.log("isA" in A1_1);
+    console.log("isB" in A1_1);
+    console.log("isC" in A1_1);
+
+
+</script>
+
+
+
+<h2>最頂層物件 Objec.prototype</h2>
+1. 原型練 會一直往上找, 直到 Object
+<br>
+
+
+<h2>A函式 new 給 B函式, 與其原型關係</h2>
+1. A函式 new 給 B函式, B函式可取得 A函式原型之方法 sayHello, 如下請實作
+<br>
+2. A函式 若本身就有跟 A原型相同之 方法 sayHello , new 給 B後, 會先調用哪個？ ans: A本身
+<br>
+=> 為何 因為原型練 是 從 A本身找 => A原型 => .... => obj 原型
+<br>
+
+<script>
+    console.log(" ==================== <h2>A函式 new 給 B函式, 與其原型關係</h2> ==================== ");
+
+    console.log("1. A函式 new 給 B函式, B函式可取得 A函式原型之方法 sayHello, 如下請實作")
+    function Afun1_1() {};
+    // A原型新增 sayHello 
+    Afun1_1.prototype.sayHello = function() {
+        console.log("Afun1_1 proto hello :) ");
+    }
+    // A new 給 B
+    Bfun1_1 = new Afun1_1();
+    Bfun1_1.sayHello();
+
+    // ===============================================
+    console.log("2. A函式 若本身就有跟 A原型相同之 方法 sayHello , new 給 B後, 會先調用哪個？ ans: _____");
+    function Afun1_2() {
+        this.sayHello = function() {
+            console.log(" Afun1_2 本身 say hello :) ");
+        }
+    }
+
+    Afun1_2.prototype.sayHello = function() {
+        console.log("Afun1_2 proto hello :) ");
+    }
+
+    Bfun1_2 = new Afun1_2();
+    Bfun1_2.sayHello();
+
+</script>
+
+
+<h2>洛克人使用 hasOwnProperty 檢查</h2>
+
+
+
+
+
+

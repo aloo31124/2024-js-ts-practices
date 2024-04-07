@@ -1,0 +1,233 @@
+<h1>ch3. var 變數 </h1>
+
+<script>
+
+    arr1 = [1, 4, 5, 6];
+    arr2 = [1, 4, 5, 6];
+    let isSame = true;
+    let i = 0;
+    arr1.forEach(x => {
+        if(arr1[i] !== arr2[i]) {
+            isSame = false
+        }
+        i ++;
+    });
+
+    console.log("loulou test : " + isSame);
+</script>
+0. js 是參考 C語言 的語法。
+
+<h2>變數</h2>
+
+1. js 變數命名「字首/字尾」 可使用 $, _ , 英文字 (區分大小寫)
+
+2. 命名 不可使用 保留字 rever word 與 關鍵字 keyword
+
+3. js 當前支援 unicode, 因此可用中文字命名 => 不要！
+
+4. es6 前使用 var,  es6後可用 let變數, const常數
+
+5. js 為 弱型別 , 變數 沒有型別 (不需宣告型別) , 值 才有 型別
+
+<script>
+
+    var 你好 = 1 + 1; //不要  ="=
+    console.log(你好);
+
+    let let1 = 2;
+    let1 = 4;
+    console.log(let1);
+    const const1 = 3;
+    //const1 = 7; // type error ... readonly property
+    console.log(const1);
+
+    var u;
+    console.log(u); // undefined
+
+    //console.log(nn); // reference error ... cant find/ not defined
+
+</script>
+
+
+6. ** js 的變數可不 宣告 => 會自動變成 「全域變數」
+
+<script>
+    console.log("6. ** js 的變數可不 宣告 => 會自動變成 「全域變數」");
+
+    g1 = 3 + 2;
+    console.log(g1);
+
+</script>
+
+
+
+<h2>變數 資料型別 data type 1</h2>
+
+1. js 變數 沒有 型別， 只有 「值」「物件」才有 型別。
+
+2. js 型別 分兩種： 「基本型別 primitive 」「 物件 Object 」
+
+3. 基本型別 primitive : number, string, boolean, null, undefined
+=> 其他皆 歸類為 object物件型別
+
+4. 可驗證型別的 js 語法為 typeof
+<script>
+    console.log("4. 使用 typeof 將上述所有型別產生");
+    console.log(typeof 2);
+    console.log(typeof "yoyo");
+    console.log(typeof true);
+
+    
+    console.log(typeof {});
+    console.log(typeof []);
+    console.log(typeof window.alert);
+
+    console.log("5. null, undefined 型別: ");
+    console.log(typeof null);
+    console.log(typeof undefined);
+
+</script>
+
+
+
+<h2>字串 string </h2>
+
+1. js 中沒有 字元char, 只有 字串string
+
+2. js 字串使用 單'', 雙 "" 包覆
+
+3. 雙可包單
+
+4. 單包單 需要 斜線
+
+5. 換行需用 斜線
+
+<script>
+    console.log("1. js 中沒有 字元char, 只有 字串string");
+    console.log("2. js 字串使用 單 雙  包覆");
+
+    console.log("3. 雙可包單");
+    console.log("雙引號在外 '單引號在內' 雙引號在外 ");
+
+    console.log("4. 單包單 需要 斜線");
+    console.log('單引號內 使用單引號 \' 需斜線\\ ')
+
+    console.log("5. 換行需用 斜線");
+    /*
+    var str1 = '第一行\
+                第二行\
+                第三行';
+    console.log(str1);
+    */
+</script>
+
+
+<h2>number</h2>
+
+1. js 整數，小數 皆是 number 型別。
+
+2. js 數字 特別型別： +/-infinity, isNaN
+
+3. js 正負數 / 0 = +/-infinity
+
+4. 0/0, = nan
+
+<script>
+    console.log("1. js 整數，小數 皆是 number 型別。");
+    console.log("2. js 數字 特別型別： +/-infinity, isNaN");
+
+    console.log("3. js 正負數 / 0 = +/-infinity");
+    console.log(1/0);
+    console.log(-1/0);
+
+    console.log("4. 0/0, = nan");
+    console.log(0/0);
+
+
+</script>
+
+
+5. NaN typeof ='=
+
+6. NaN != NaN ='=
+
+7. 可使用 isNaN
+
+<script>
+    console.log("5. NaN typeof ='=");
+    console.log(typeof NaN)
+    console.log("6. NaN != NaN ='=");
+    console.log(NaN === NaN);
+    console.log("7. 可使用 isNaN");
+    console.log(isNaN(NaN));
+
+    function fun1() {
+
+    }
+
+
+
+    
+
+</script>
+
+8. js: 0.1 + 0.2 =?
+=> 3.000...004
+=> 因為 0.1 轉 二進制浮點數 會是無限位數。
+
+9. 解決方法: number precision
+
+<script>
+    console.log("8. js: 0.1 + 0.2 =?");
+
+    console.log(0.1 + 0.2);
+
+</script>
+
+
+
+
+<h2>boolean</h2>
+
+1. 略
+
+<script>
+    console.log( 1 === 2 );
+    console.log( 1 === 1 );
+    
+    //三元
+    console.log( ( 1 === 1 ) ? "是true" : "是false" );
+    console.log( ( 1 === 2 ) ? "是true" : "是false" );
+
+</script>
+
+
+
+<h2>null , undefined</h2>
+
+1. js 中, null 與 undefined 差異
+=> undefined : 變數 還沒給值，因此不確定為何？
+=> null : 之前可能有值，或沒有值 ， 但確定當前為 null 
+
+<script>
+    console.log("1-1. undefined : 變數 還沒給值，因此不確定為何？ ");
+    var u1;
+    console.log(u1);
+
+    console.log("1-2. null : 之前可能有值，或沒有值 ， 但確定當前為 null  ");
+    var n1 = null;
+    console.log(n1);
+
+    var n2 = 1;
+    n2 = null;
+    console.log(n2);
+
+</script>
+
+
+
+
+
+
+
+

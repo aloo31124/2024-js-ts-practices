@@ -1,0 +1,49 @@
+
+<h2>1. 非同步基本觀念</h2>
+<br>
+=> 非同步功能 皆於最後執行
+<br>
+
+<script>
+    console.log("1. 非同步基本觀念");
+    console.log("   => 非同步功能 皆於最後執行");
+
+    console.log("工作a");
+    setTimeout(()=> {
+        console.log("非同步工作1");
+    },0);
+    console.log("工作b");
+    setTimeout(()=> {
+        console.log("非同步工作2");
+    },0);
+</script>
+
+<h2>promise 基本</h2>
+=> promise 為處理 傳統 call back 非同步處理方式
+
+<script>
+    console.log("promise 基本");
+    console.log("=> promise 為處理 傳統 call back 非同步處理方式");
+
+    console.log("工作 b1");
+    const promiseWork = (status) => {
+        return new Promise((resolve, reject)=> {
+            if (status) {
+                resolve("promise 成功");
+            } else {
+                reject("promise 失敗");
+            }
+        })
+    }
+
+    console.log("工作 b2");
+    promiseWork(true)
+        .then(x => {
+            console.log(x);
+        });
+    console.log("工作 b3");
+
+</script>
+
+
+

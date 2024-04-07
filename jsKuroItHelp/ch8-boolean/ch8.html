@@ -1,0 +1,156 @@
+<h1>布林值, 指派運算子, 逗號運算子</h1>
+
+
+<h2>指派運算子 assigement operator</h2>
+
+1. 基本給值( 指派 assiget ) var x = 10;
+<br>
+2. 指派運算子 + 算數運算子, 如 a += 10;
+<br>
+
+<script>
+    console.log("1. 基本給值( 指派 assiget ) var x = 10;");
+    var a;
+    a = 10;
+    
+    console.log("2. 指派運算子 + 算數運算子, 如 a += 10;");
+    console.log( a += 100 );
+    console.log( a -= 10 );
+    console.log( a *= 3 );
+    console.log( a /= 2 );
+
+</script>
+
+
+<h2>逗號運算子</h2>
+
+1. js 逗號運算子 主要是分隔計算, 並由左至右
+<br>
+2. js 使用 逗號運算子 分隔 迴圈
+<br>
+3. js 使用 逗號運算子 分開宣告
+<br>
+4. js 錯誤連續宣告 範例: var a = b = 10;
+<br>
+
+<script>
+    console.log("2. js 使用 逗號運算子 分隔 迴圈");
+    for(i=0, j=10 ;i<10 ; i++, j++ ) {
+        k = i + j;
+        console.log(k);
+    }
+
+    console.log("3. js 使用 逗號運算子 分開宣告");
+    var a=10, b=20;
+    console.log(a);
+    console.log(b);
+
+    //console.log("4. js 錯誤宣告 範例");
+    //var c = d = 10;
+
+</script>
+
+
+<h2>js錯誤連續宣告</h2>
+
+1. var a=b=10; 會讓b 成為 全域變數
+=> 等同 var a=10; b=10;
+
+<script>
+    console.log("1. var a=b=10; 會讓b 成為 全域變數");
+    (function(){
+        var a1 = b1 = 10;
+        console.log( a1, b1);
+        var a2 = 10; b2 = 10;
+        console.log( a2, b2 );
+    })();
+    console.log( b1 );
+    console.log( b2 );
+
+</script>
+
+
+
+<h2>邏輯運算子 logic operator</h2>
+
+1. js 邏輯運算子 有 and&& , or|| , not! => 跟一般語言類似
+<br>
+2. js 中, 只有 not! 會回傳 ture, false => 不理解 =''=
+<br>
+3. js 分兩種邏輯處理
+=> isBoolean轉換 false
+=> 回傳 true
+<br>
+4. js 中 數字, 字串, null 邏輯判斷之神奇變化: (難理解)
+=> 數字 與 中文比較         
+=> null 與 數字,中文比較    
+<br>
+
+<script>
+    console.log("4. js 中 數字, 字串, null 邏輯判斷之神奇變化:");
+    console.log("=> 數字 與 中文比較");
+    console.log( 123 && "abc" );
+    console.log( 123 || "abc" );
+
+    console.log("=> null 與 數字,中文比較 &&");
+    console.log(null && 123);
+    console.log(null && "abc");
+
+    console.log("=> null 與 數字,中文比較 ||");
+    console.log(null || 123);
+    console.log(null || "abc");
+    
+</script>
+
+
+<h2>js布林,型別轉換:falsy, truthy </h2>
+
+1. js 下列四種 Boolean() 會變成 false => 稱為 falsy
+=> null
+=> undefined
+=> 數字: +-0, NaN
+=> 空字串: "", ''
+
+<script>
+    console.log("1. js 下列四種 Boolean() 會變成 false => 稱為 falsy");
+    console.log( Boolean(null) );
+    console.log( Boolean(undefined) );
+    console.log( Boolean(0) );
+    console.log( Boolean(NaN) );
+    console.log( Boolean("") );
+    console.log( Boolean('') );
+
+</script>
+
+2. js 中，若 Boolean() 回傳 true => 稱為 truthy
+
+3. js 中 使用 Boolean() 回傳true的特例:
+=> Boolean("") 字串假裝 false
+=> Boolean() 處理 空 物件, 陣列, 函式
+
+<script>
+    console.log("3. js 中 使用 Boolean() 回傳true的特例:");
+    console.log("=> Boolean() 字串假裝 false");
+    console.log(Boolean("null"));
+    console.log(Boolean("0"));
+    console.log(Boolean("''"));
+
+    console.log("=> Boolean() 處理 空 物件, 陣列, 函式");
+    console.log(Boolean({}));
+    console.log(Boolean([]));
+    console.log(Boolean(function(){}));
+
+</script>
+
+
+<h2>null,字串數字 js邏輯處理</h2>
+
+1. and&&, or|| 產生的不一定是 boolean, 可能為其 輸入值的其中之一
+
+2. 如果輸入值為 布林值, 進行後續判斷,若非則使用 Boolean() 進行轉換 truthy, falsy
+
+3. or || , 若第一個為 true, 則回傳第一個值; 反之false則回傳第二個
+
+4. and && , 若第一個為 true, 則回傳第二個; 反之false則回傳第一個
+
+

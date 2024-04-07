@@ -1,0 +1,80 @@
+<h1>重新認識 JavaScript: Day 25 原型與繼承</h1>
+https://ithelp.ithome.com.tw/articles/10194356
+<br>
+
+<h2>簡介, js 原型繼承範例1, person</h2>
+1. js 沒有定義 class , js 主要是使用 原型 來實現 繼承
+<br>
+2. "被" 繼承之 物件, 便被成為 原型 prototype
+<br>
+3. 可使用 函式建構式 來建立一個物件, 該物件可繼承之 屬性 與 方法
+<br>
+
+<h2>範例1: person proto say name</h2>
+1. 先新增一個 person 函式, 有 name
+<br>
+2. 讓其 函式 之 原型 say name
+<br>
+3. new 一個 person 為 p1, say name :)
+<br>
+
+<script>
+    console.log("1. 先新增一個 person 函式, 有 name");
+    function person(name) {
+        this.name = name;
+    }
+
+    console.log("2. 讓其 函式 之 原型 say name ");
+    person.prototype.sayName = function() {
+        return this.name;
+    }
+
+    console.log("3. new 一個 person 為 p1, say name :) ");
+    var p1 = new person("loulou1");
+    console.log(p1.sayName());
+
+    console.log(p1);
+    console.log(person);
+
+</script>
+
+<h2>範例1說明,物件的指向</h2>
+1. 上述範例1, new 一個 person, p1 即是物件
+<br>
+2. new 後 p1 物件的 原型 會 自動指向 (person)函式建構式 的 屬性  , 也就是 person.prototype
+<br>
+=> p1.prototype =指向=>  (person)函式建構式 的 屬性 ==> person.prototype
+<br>
+3. 補充: pserson 的 原型prototype , 一樣回指向 Function 的原型, 並使用 call(), bind(), apply() 方法
+<br>
+=> psersion.prototype =指向=> Function.prototype =使用屬性, 方法=> call(), bind(), apply()
+<br>
+
+
+<h2>「Polyfill」用來增強擴充</h2>
+略
+<br>
+
+<h2>__proto__ 與 prototype 的關係</h2>
+
+1. js 每一個物件都有其 原型物件 , 在 chrom > console : [[prototype]]
+<br>
+=> 舊版的 js 無法直接對 原型物件 [[prototype]] 存取
+<br>
+2. 大多數 瀏覽器 之 js引擎 都會讓 物件提供 __proto__ 屬性, 用於存取 原型物件
+<br>
+3. 另外一種, 標準方法: Object.getPrototypeOf() 
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+

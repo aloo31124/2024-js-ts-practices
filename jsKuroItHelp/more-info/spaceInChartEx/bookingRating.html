@@ -1,0 +1,125 @@
+
+<h1>剩餘空間處理</h1>
+1. db 有每一筆 booking 紀錄, 包含日期, 種類
+<br>
+2. 需將上述資料整理統計 每日剩餘空間:   已被借用空間 / 所有空間數
+<br>
+3. 回傳資料格式
+<br>
+<p>
+    [
+      {date:"2024-3-15", rate: 10},
+      {date:"2024-3-3", rate: 20},
+    ];
+</p>
+
+
+<h2>初始資料</h2>
+<script>
+    const bookingList = 
+    [
+        {
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-3-4",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-4",
+            "room":"testRoom",
+            "site":"testSite"
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-3-5",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-5",
+            "room":""
+        },
+
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-2-14",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-14",
+            "room":""
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-2-5",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-5",
+            "room":""
+        },
+        {
+            "site":"",
+            "mail":"aloo31124@gmail.com",
+            "endDatae":"2024-2-15",
+            "bookingType":"room",
+            "startTime":"12:00",
+            "endTime":"12:00",
+            "userId":"116948565362750745211",
+            "startDate":"2024-3-15",
+            "room":""
+        },
+
+    ]
+</script>
+
+
+
+<script>
+
+const month = 3
+const currentDate = new Date();
+      // 篩選 日期範圍, 起迄日期
+      const bookingListFilter = bookingList.filter((booking) => {
+        const _startDate = new Date(currentDate.getFullYear(), +month - 1, 1);
+        const _endDate = new Date(currentDate.getFullYear(), +month, 0);
+        console.log(_startDate);
+        console.log(_endDate);
+
+        const bookingDate = new Date(booking.startDate);
+        return bookingDate >= _startDate && bookingDate <= _endDate;
+      });
+
+      console.log(bookingListFilter);
+
+
+const lastDate = (new Date(2024, month, 0)).getDate();
+
+// 土法逐日計算 :)
+const totalRoom = 4;
+let resultList = [];
+for(let i=0; i<lastDate; i++) {
+    let bookingCounter = 0;
+    bookingListFilter.forEach(booking => {
+        if(i+1 === (new Date(booking.startDate)).getDate()) {
+            bookingCounter ++;
+        }
+    });
+    result = {
+        date: "2024-3-" + (i + 1),
+        rete: ((totalRoom - bookingCounter) / totalRoom) * 100,
+    }
+
+    resultList.push(result);
+}
+
+
+console.log(resultList);
+
+
+</script>
