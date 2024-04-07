@@ -1,0 +1,116 @@
+<h1>重新認識 JavaScript: Day 23 基本型別包裹器 Primitive Wrapper</h1>
+
+https://ithelp.ithome.com.tw/articles/10193902
+<br>
+
+
+<h2>物件 - 建構器 Constructor</h2>
+在這系列文中一直以來，我們強調在 JavaScript 這門程式語言當中，
+<br>
+=> 內建的型別主要可以分成 1.基本型別 (Primitives) 與 2.物件型別 (Object) 兩大類。
+<br>
+
+而在 物件型別 當中，又可以再細分出幾種 「建構器」(Constructor)：
+<br>
+=> 如常見: string(), number(), boolean()
+<br>
+=> 如其他1?: Array(), Object(), Function()
+<br>
+=> 如其他2? : RegExp(), Date(), Error(), Symbol()
+<br>
+
+
+<h2>建構器 即是 「內建函式」</h2>
+
+建構器 都可以透過 new關鍵字 來產生一個對應 物件，
+<br>
+對 JavaScript 不熟悉的朋友甚至會把他們當做 Class類別 (很像＠＿＠) 來看。
+<br>
+這些 Constructor 只是 JavaScript 所提供的 「內建函式」。
+<br>
+備註: function 可以作為建構式的朋友可以參閱前一篇： 重新認識 JavaScript: Day 22 深入理解 JavaScript 物件屬性 )
+<br>
+
+<h3>範例1: string 非 new String()... 嗎？ typeof 不同</h3>
+string(), number(), boolean() new 出的實體, 依然是物件, 非基本型別 => 請使用  string + typeof 實作差異
+<br>
+
+<script>
+    console.log("<h3>範例1: string 非 new String()... 嗎？ typeof 不同</h3>");
+    console.log("string(), number(), boolean() new 出的實體, 依然是物件, 非基本型別 => 請使用  string + typeof 實作差異");
+
+    const str1_1 = "hello1_1";
+    console.log(typeof str1_1);
+
+    const str1_2 = new String("hello 1-2 yoyoyo");
+    console.log(typeof str1_2);
+
+</script>
+
+
+
+
+<h2>string 基本型別, 為何可取到 length,toUpperCase() 屬性與方法？</h2>
+<br>
+=> 為什麼明明是「基本型別」卻會有「屬性」以及「方法」可以呼叫？ => 後面說明
+<br>
+
+
+
+
+
+<h2>基本型別包裹器 Primitive Wrapper</h2>
+
+去存取 String、Number 與 Boolean 這三種基本型別的 屬性 時 => 它就只會在「那一刻」被 轉型 為該類別的「物件」。
+<br>
+
+<h3>範例2: 實作 string.length 之自動轉型</h3>
+
+1.它會透過對應的物件建構器將 "Hello" 包裝成一個 String 的「物件」，(自動轉型)
+<br>
+2.然後回傳對應的屬性後，即刻銷毀恢復成基本型別。
+<br>
+
+<script>
+    console.log(" 實作 string.length 之自動轉型")
+    // 原本程式
+    let str2_1 = "hello";
+    console.log(str2_1.length);
+    
+    
+    //承上背後運作 
+
+    var str2_2 = "hello 2-2 yoyo";
+
+    console.log("1.它會透過對應的物件建構器將 \"Hello\" 包裝成一個 String 的「物件」，(自動轉型)");
+    str2_2 = new String(str2_2);
+    console.log(typeof str2_2);
+    console.log(str2_2.length);
+
+    console.log("2.然後回傳對應的屬性後，即刻銷毀恢復成基本型別。");
+    str2_2 = str2_2.toString();
+    console.log(typeof str2_2);
+
+
+</script>
+
+
+
+<h2>「基本型別包裹器」(Primitive Wrapper) 常用 函式</h2>
+而它們的「屬性」及「方法」當然就是由對應的物件所提供，
+<br>
+這個對應的物件也就是我們所說的「基本型別包裹器」(Primitive Wrapper)。
+<br>
+這些複合式物件我們可以透過 instanceof 來確認它的基本型別是什麼。
+<br>
+另外，當我們要取得原始的值時，可以透過 .valueOf() 來取得。 [註1]
+<br>
+
+
+<h2>new 物件不一定比較好</h2>
+
+透過 new 建構式生成的結果必定是物件，不管 String、Number 還是 Boolean 都是 => typeof 不好判斷
+<br>
+透過 new 建構式生成的結果必定是物件，不管 String、Number 還是 Boolean 都是
+<br>
+
