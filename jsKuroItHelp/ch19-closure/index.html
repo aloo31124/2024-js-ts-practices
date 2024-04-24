@@ -1,0 +1,130 @@
+<h1>ch19 閉包closure</h1>
+
+
+<h2>範圍鏈 Scope chain</h2>
+1. 變數最小範圍為 : 函式function
+<br>
+2. 若多層函式都沒有宣告 變數b, 會作哪兩件事?
+<br>
+=> (1). js 會一路向多層函式 "外" 找是否有 變數b, 直至 全域global 為止
+<br>
+=> (2). 若 js 在多層函數都沒找到, 則變數b 直接變為 [全域變數]
+<br>
+=> 上述便是 [範圍鏈 Scope chain]
+<br>
+
+<h3>範例1: 範圍鏈 + 閉包 => 函式內外層範例</h3>
+<script>
+    console.log("<h3>範例1: 範圍鏈 + 閉包 => 函式內外層範例</h3>")
+
+    var msg ="外面";
+    function outer() {
+        var msg = "裏面";
+        function inner() {
+            return msg;
+        }
+
+        return inner;
+    }
+
+    var outerFun = outer();
+    console.log(outerFun());
+</script>
+
+<h2>閉包 closure</h2>
+1. 外部函式 回傳其 內部函式 時, 可取得 內部函式 其 [當時環境] 的變數值
+<br>
+
+<h3>範例2: 計時器 IIFE範例, 迴圈.setTimeout 每秒紀一次</h3>
+
+<script>
+    console.log("<h3>範例2: 計時器, 迴圈.setTimeout </h3>")
+    for(var i=0; i<5; i++) {
+        (function(i){
+            // 執行 setTimeout 時, 會將 i 值鎖起來, 延長壽命
+            window.setTimeout(function() {
+                //console.log(i);
+            }, 1000 * i);
+        })(i)
+    }
+</script>
+
+
+
+<h2>計數器 比對 閉包使用差異</h2>
+
+<h3>範例3_1, 全域變數</h3>
+1. 原本的寫法, 變數需為全域變數 => 參數會引用錯誤
+<br>
+
+<script>
+    console.log("<h3>範例3_1, 全域變數</h3>")
+    var count3_1 = 0;
+    function counter3_1() {
+        return count3_1 ++;
+    }
+
+    console.log(counter3_1());
+    console.log(counter3_1());
+</script>
+
+<h3>範例3_2, 使用閉包, 內外層函式計算</h3>
+<script>
+    console.log("<h3>範例3_2, 使用閉包, 內外層函式計算</h3>")
+    function counterOuter3_2() {
+        var count3_2 = 0;
+        function counterInner() {
+            return count3_2 ++;
+        }
+        return counterInner;
+    }
+
+    //console.log(counterOuter3_2()()); // => 不會計算???
+    var count3_2 = counterOuter3_2();
+    console.log("3-2", count3_2());
+    console.log("3-2", count3_2());
+    console.log("3-2", count3_2());
+
+</script>
+<h3>範例3_3, 簡化1 => retrun 匿名函式</h3>
+
+<script>
+    console.log("<h3>範例3_3, 簡化1 => retrun 匿名函式</h3>");
+
+    function conterOuter3_3() {
+        var count3_3 = 0;
+        return function() {
+            return count3_3 ++;
+        }
+    }
+    var count3_3 = conterOuter3_3();
+
+    console.log("3-3", count3_3());
+    console.log("3-3", count3_3());
+    console.log("3-3", count3_3());
+</script>
+
+
+
+
+<h3>範例3_4, 簡化2, = 箭頭函式 ?</h3>
+=> 壞掉 ＝“＝
+<br>
+
+<script>
+    console.log("<h3>範例3_4, 簡化2, = 箭頭函式</h3>");
+
+    var count3_4 = () => {
+        var count3_4;
+        return () => count3_4++;
+    }
+
+    console.log("3-4", count3_4());
+    console.log("3-4", count3_4());
+    console.log("3-4", count3_4());
+
+</script>
+
+
+
+
